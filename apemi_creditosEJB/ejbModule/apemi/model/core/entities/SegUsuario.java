@@ -27,11 +27,11 @@ public class SegUsuario implements Serializable {
 	private String clave;
 
 	//bi-directional many-to-one association to CredCabecera
-	@OneToMany(mappedBy="segUsuario1",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="segUsuario1")
 	private List<CredCabecera> credCabeceras1;
 
 	//bi-directional many-to-one association to CredCabecera
-	@OneToMany(mappedBy="segUsuario2",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="segUsuario2")
 	private List<CredCabecera> credCabeceras2;
 
 	//bi-directional many-to-one association to SegAsignacion
@@ -44,7 +44,7 @@ public class SegUsuario implements Serializable {
 	private AsoPersona asoPersona;
 
 	//bi-directional many-to-one association to ThmEmpleado
-	@OneToMany(mappedBy="segUsuario",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="segUsuario")
 	private List<ThmEmpleado> thmEmpleados;
 
 	public SegUsuario() {

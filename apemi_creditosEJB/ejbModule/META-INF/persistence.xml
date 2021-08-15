@@ -8,6 +8,7 @@
 		<class>apemi.model.core.entities.CredCabecera</class>
 		<class>apemi.model.core.entities.CredDetalle</class>
 		<class>apemi.model.core.entities.CredGarante</class>
+		<class>apemi.model.core.entities.CredParametro</class>
 		<class>apemi.model.core.entities.SegAsignacion</class>
 		<class>apemi.model.core.entities.SegModulo</class>
 		<class>apemi.model.core.entities.SegUsuario</class>
@@ -15,7 +16,6 @@
 		<class>apemi.model.core.entities.ThmEmpleado</class>
 		<class>apemi.model.core.entities.ThmRolCabecera</class>
 		<class>apemi.model.core.entities.ThmRolDetalle</class>
-		<class>apemi.model.core.entities.CredParametro</class>
 		<class>apemi.model.core.entities.VwThmConsultaRol</class>
 	</persistence-unit>
 </persistence>

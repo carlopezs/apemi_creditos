@@ -23,6 +23,7 @@ public class VwThmConsultaRol implements Serializable {
 
 	@Column(name="id_thm_empleado")
 	private Integer idThmEmpleado;
+	
 	@Id
 	@Column(name="id_thm_rol_cabecera")
 	private Integer idThmRolCabecera;
