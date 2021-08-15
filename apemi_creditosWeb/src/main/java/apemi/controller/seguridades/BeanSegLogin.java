@@ -111,6 +111,7 @@ public class BeanSegLogin implements Serializable {
 	}
 	
 	public void actionListenerInicialiarDemo() {
+		System.out.println("Se inicializa");
 		try {
 			mSeguridades.inicializarDemo();
 		} catch (Exception e) {

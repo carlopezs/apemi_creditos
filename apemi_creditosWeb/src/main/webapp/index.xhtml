@@ -9,8 +9,33 @@
 	<title>Login</title>
 </h:head>
 <body>
-	<h1>Hola mundo</h1>
+	<div align="center">
+	<p:messages>
+		<p:autoUpdate />
+	</p:messages>
+		<h:form>
+			<p:panel>
+				<p:panelGrid columns="2">
+					<h:outputText value="Id de usuario:" />
+					<p:inputText value="#{beanSegLogin.idSegUsuario}" />
+					<h:outputText value="Clave:" />
+					<p:password value="#{beanSegLogin.clave}" />
+					<p:commandButton value="Login"
+						action="#{beanSegLogin.actionLogin()}" icon="pi pi-key"></p:commandButton>
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+		<h:form>
+			<p:panel>
+				<p:panelGrid columns="2">
+					<h:outputText value="Inicializar datos" />
+					<p:commandButton value="Inicializar"
+						actionListener="#{beanSegLogin.actionListenerInicialiarDemo()}"
+						icon="pi pi-close"></p:commandButton>
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+	</div>
 </body>
 </html>
-
 
