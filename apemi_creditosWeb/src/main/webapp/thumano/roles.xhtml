@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+	<f:event listener="#{beanSegLogin.actionVerificarLogin()}"
+		type="preRenderView"></f:event>
+</f:metadata>
+<h:head>
+	<title>Roles</title>
+</h:head>
+<body>
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Regresar" icon="pi pi-home" action="menu" />
+			<f:facet name="options">
+				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
+					icon="pi pi-user">
+					<p:menuitem value="Perfil" icon="pi pi-cog"></p:menuitem>
+					<p:menuitem value="Cerrar sesión" icon="pi pi-sign-out"
+						action="#{beanSegLogin.actionCerrarSesion()}"></p:menuitem>
+				</p:menuButton>
+			</f:facet>
+		</p:menubar>
+	</h:form>
+	<p:panel>
+		<h:form>
+			<p:selectOneMenu
+				value="#{beanTHumanoRolPagos.periodoRolSeleccionado}">
+				<f:selectItem itemLabel="Seleccione el período..."
+					noSelectionOption="true" />
+				<f:selectItems value="#{beanTHumanoRolPagos.listaPeriodosRol}"
+					var="p" itemLabel="#{p}" itemValue="#{p}"></f:selectItems>
+			</p:selectOneMenu>
+			<p:commandButton value="Generar rol" icon="pi pi-wallet"
+				actionListener="#{beanTHumanoRolPagos.actionListenerGenerarRolPagos()}"
+				update="@form"></p:commandButton>
+			<p:dataTable value="#{beanTHumanoRolPagos.listaRolCabeceras}"
+				var="cab">
+				<p:column headerText="ID" style="width:40px">
+					<h:outputText value="#{cab.idThmRolCabecera}" />
+				</p:column>
+				<p:column headerText="PERIODO">
+					<h:outputText value="#{cab.periodoRol}" />
+				</p:column>
+				<p:column headerText="NOMBRES">
+					<h:outputText value="#{cab.thmEmpleado.segUsuario.apellidos}" />
+				</p:column>
+				<p:column headerText="CARGO">
+					<h:outputText value="#{cab.nombreCargo}" />
+				</p:column>
+				<p:column headerText="INGRESOS" style="text-align:right">
+					<h:outputText value="#{cab.subtotalIngresos}" />
+				</p:column>
+				<p:column headerText="INGRESOS ADICIONALES" style="text-align:right">
+					<h:outputText value="#{cab.subtotalIngresosAdicionales}" />
+				</p:column>
+				<p:column headerText="EGRESOS" style="text-align:right">
+					<h:outputText value="#{cab.subtotalEgresos}" />
+				</p:column>
+				<p:column headerText="TOTAL" style="text-align:right">
+					<h:outputText value="#{cab.total}" />
+				</p:column>
+				<p:column headerText="REPORTE">
+					<p:commandButton icon="pi pi-search" title="reporte"
+						id="cmdReporte" />
+					<p:overlayPanel for="cmdReporte" showCloseIcon="true"
+						style="width:350px">
+
+						<p:dataTable value="#{cab.thmRolDetalles}" var="det">
+							<p:column headerText="Concepto">
+								<h:outputText value="#{det.descripcion}" />
+							</p:column>
+							<p:column style="text-align:right;width:60px" headerText="Valor">
+								<h:outputText value="#{det.valor}" />
+							</p:column>
+						</p:dataTable>
+
+					</p:overlayPanel>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</p:panel>
+</body>
+</html>

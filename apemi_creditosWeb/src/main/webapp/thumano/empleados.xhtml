@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+	<f:event listener="#{beanSegLogin.actionVerificarLogin()}"
+		type="preRenderView"></f:event>
+</f:metadata>
+<h:head>
+	<title>Empleados</title>
+</h:head>
+<body>
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Regresar" icon="pi pi-home" action="menu" />
+			<f:facet name="options">
+				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
+					icon="pi pi-user">
+					<p:menuitem value="Perfil" icon="pi pi-cog"></p:menuitem>
+					<p:menuitem value="Cerrar sesión" icon="pi pi-sign-out"
+						action="#{beanSegLogin.actionCerrarSesion()}"></p:menuitem>
+				</p:menuButton>
+			</f:facet>
+		</p:menubar>
+	</h:form>
+	<p:panel>
+		<p:commandButton value="Nuevo" icon="pi pi-plus" id="cmdNuevo"></p:commandButton>
+		<p:overlayPanel for="cmdNuevo" showCloseIcon="true">
+			<h:form>
+				<p:panelGrid columns="2">
+					<h:outputText value="Seleccione el usuario:" />
+					<p:selectOneMenu value="#{beanTHumanoEmpleados.idSegUsuario}">
+						<f:selectItem itemLabel="Seleccione..." noSelectionOption="true" />
+						<f:selectItems value="#{beanTHumanoEmpleados.listaUsuarios}"
+							var="u" itemLabel="#{u.apellidos} #{u.nombres}"
+							itemValue="#{u.idSegUsuario}"></f:selectItems>
+					</p:selectOneMenu>
+					<h:outputText value="Seleccione el cargo:" />
+					<p:selectOneMenu value="#{beanTHumanoEmpleados.idThmCargo}">
+						<f:selectItem itemLabel="Seleccione..." noSelectionOption="true" />
+						<f:selectItems value="#{beanTHumanoEmpleados.listaCargos}" var="c"
+							itemLabel="#{c.nombreCargo}" itemValue="#{c.idThmCargo}"></f:selectItems>
+					</p:selectOneMenu>
+					<p:commandButton value="Guardar" icon="pi pi-save"
+						actionListener="#{beanTHumanoEmpleados.actionListenerInsertarEmpleado()}"
+						update="@form:,formDatos"></p:commandButton>
+				</p:panelGrid>
+			</h:form>
+		</p:overlayPanel>
+		<h:form id="formDatos">
+			<p:dataTable emptyMessage="No hay registros aún." value="#{beanTHumanoEmpleados.listaEmpleados}" var="e">
+				<p:column headerText="ID" style="width:40px">
+					<h:outputText value="#{e.idThmEmpleado}" />
+				</p:column>
+				<p:column headerText="NOMBRE EMPLEADO">
+					<h:outputText value="#{e.segUsuario.apellidos} #{e.segUsuario.nombres}" />
+				</p:column>
+				<p:column headerText="CARGO">
+					<h:outputText value="#{e.thmCargo.nombreCargo}" />
+				</p:column>
+				<p:column headerText="RMU">
+					<h:outputText value="#{e.thmCargo.remuneracionMensual}" />
+				</p:column>
+				<p:column headerText="H_TRABJ">
+					<h:outputText value="#{e.horasTrabajadas}" />
+				</p:column>
+				<p:column headerText="H_EXTR">
+					<h:outputText value="#{e.horasExtra}" />
+				</p:column>
+				<p:column headerText="PRÉSTAMO">
+					<h:outputText value="#{e.cuotaPrestamo}" />
+				</p:column>
+				<p:column headerText="OPCIONES">
+					<p:commandButton icon="pi pi-pencil" title="editar" />
+					<p:commandButton icon="pi pi-times-circle" title="eliminar"
+						styleClass="ui-button-danger">
+						<p:confirm header="Confirmación"
+							message="Desea borrar este registro?" icon="pi pi-info-circle" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</p:panel>
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+		responsive="true" width="350">
+		<p:commandButton value="No" type="button"
+			styleClass="ui-confirmdialog-no ui-button-flat" />
+		<p:commandButton value="Sí" type="button"
+			styleClass="ui-confirmdialog-yes" />
+	</p:confirmDialog>
+</body>
+</html>

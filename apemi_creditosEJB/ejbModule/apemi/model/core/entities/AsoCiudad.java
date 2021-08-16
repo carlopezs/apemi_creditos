@@ -24,7 +24,7 @@ public class AsoCiudad implements Serializable {
 	private String nombre;
 
 	//bi-directional many-to-one association to AsoPersona
-	@OneToMany(mappedBy="asoCiudad")
+	@OneToMany(mappedBy="asoCiudad",cascade = CascadeType.ALL)
 	private List<AsoPersona> asoPersonas;
 
 	public AsoCiudad() {

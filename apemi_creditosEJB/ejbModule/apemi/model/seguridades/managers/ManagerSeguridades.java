@@ -63,16 +63,17 @@ public class ManagerSeguridades {
     	
     	
     	//creacion del usuario administrador:
-    	if(existeAdministrador==false) {
+    	//if(existeAdministrador==false) {
 			SegUsuario administrador=new SegUsuario();
 			AsoPersona persona = new AsoPersona();
 			AsoCiudad ciudad = new AsoCiudad();
 			
 			ciudad.setNombre("Ibarra");
-			
-			
+			mDAO.insertar(ciudad);
+			AsoCiudad ciudadPersona = (AsoCiudad) mDAO.findById(AsoCiudad.class, ciudad.getIdCiudad());
+			persona.setCedula("1002003000");
 			persona.setApellidos("admin");
-			persona.setAsoCiudad(ciudad);
+			persona.setAsoCiudad(ciudadPersona);
 			persona.setCorreo("admin@gmail.com");
 			persona.setDireccion("Alpachaca");
 			persona.setGenero("M");
@@ -81,15 +82,19 @@ public class ManagerSeguridades {
 			persona.setMovil("0969598740");
 			persona.setNombres("admin");
 			
+			mDAO.insertar(persona);
+			AsoPersona usuarioPersona = (AsoPersona) mDAO.findById(AsoPersona.class, persona.getIdPersona());
+			administrador.setAsoPersona(usuarioPersona);
 			administrador.setActivo(true);
 			administrador.setClave("admin");
-	
-
-
 			mDAO.insertar(administrador);
+
+
+			
+			
 			idSegUsuarioAdmin=administrador.getIdSegUsuario();
-			mAuditoria.mostrarLog(getClass(), "inicializarDemo", "Usuario administrador creado (id : "+idSegUsuarioAdmin);
-    	}
+			mAuditoria.mostrarLog(getClass(), "inicializarDemo", "Usuario administrador creado (id : "+idSegUsuarioAdmin); 
+    	//}
 		//inicializacion de modulos:
 		SegModulo modulo=new SegModulo();
 		int idSegModuloSeguridades=0;
@@ -165,28 +170,46 @@ public class ManagerSeguridades {
     }
     
     public List<SegUsuario> findAllUsuarios(){
-    	return mDAO.findAll(SegUsuario.class, "apellidos");
+    	return mDAO.findAll(SegUsuario.class, "idSegUsuario");
     }
     
     public SegUsuario findByIdSegUsuario(int idSegUsuario) throws Exception {
     	return (SegUsuario) mDAO.findById(SegUsuario.class, idSegUsuario);
     }
     
-    /*public void insertarUsuario(SegUsuario nuevoUsuario) throws Exception {
-    	nuevoUsuario.set("n/a");
-    	mDAO.insertar(nuevoUsuario);
-    }*/
     
-    /*public void actualizarUsuario(LoginDTO loginDTO,SegUsuario edicionUsuario) throws Exception {
+    
+    public void insertarUsuario(SegUsuario nuevoUsuario, AsoPersona nuevaPersona, int idCiudad) throws Exception {
+    	AsoCiudad ciudad = (AsoCiudad) mDAO.findById(AsoCiudad.class, idCiudad);
+    	nuevaPersona.setAsoCiudad(ciudad);
+    	mDAO.insertar(nuevaPersona);
+    	AsoPersona personaEncontrada = (AsoPersona)mDAO.findById(AsoPersona.class, nuevaPersona.getIdPersona());
+    	nuevoUsuario.setAsoPersona(personaEncontrada);
+    	
+    	mDAO.insertar(nuevoUsuario);
+    }
+    
+    public void actualizarUsuario(LoginDTO loginDTO,AsoPersona edicionPersona, int idCiudadEdicion, SegUsuario edicionUsuario) throws Exception {
+    	AsoPersona persona=(AsoPersona) mDAO.findById(AsoPersona.class, edicionPersona.getIdPersona());
     	SegUsuario usuario=(SegUsuario) mDAO.findById(SegUsuario.class, edicionUsuario.getIdSegUsuario());
-    	usuario.setApellidos(edicionUsuario.getApellidos());
+    	AsoCiudad ciudad = (AsoCiudad) mDAO.findById(AsoCiudad.class, idCiudadEdicion);
+    	persona.setNombres(edicionPersona.getNombres());
+    	persona.setApellidos(edicionPersona.getApellidos());
+    	persona.setAsoCiudad(ciudad);
+    	persona.setDireccion(edicionPersona.getDireccion());
+    	persona.setCorreo(edicionPersona.getCorreo());
+    	persona.setTelefono(edicionPersona.getTelefono());
+    	persona.setMovil(edicionPersona.getMovil());
+    	persona.setFechaNacimiento(edicionPersona.getFechaNacimiento());
+    	persona.setGenero(edicionPersona.getGenero());
+    	
     	usuario.setClave(edicionUsuario.getClave());
-    	usuario.setCorreo(edicionUsuario.getCorreo());
-    	usuario.setCodigo(edicionUsuario.getCodigo());
-    	usuario.setNombres(edicionUsuario.getNombres());
+    	
+    	mDAO.actualizar(persona);
     	mDAO.actualizar(usuario);
-    	mAuditoria.mostrarLog(loginDTO, getClass(), "actualizarUsuario", "se actualizó al usuario "+usuario.getApellidos());
-    }*/
+    	
+    	mAuditoria.mostrarLog(loginDTO, getClass(), "actualizarUsuario", "se actualizó al usuario "+persona.getApellidos());
+    }
     
     public void activarDesactivarUsuario(int idSegUsuario) throws Exception {
     	SegUsuario usuario=(SegUsuario) mDAO.findById(SegUsuario.class, idSegUsuario);

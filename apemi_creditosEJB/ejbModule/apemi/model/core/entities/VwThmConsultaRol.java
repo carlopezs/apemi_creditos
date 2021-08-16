@@ -20,10 +20,9 @@ public class VwThmConsultaRol implements Serializable {
 
 	@Column(name="horas_extra")
 	private Integer horasExtra;
-
+	
 	@Column(name="id_thm_empleado")
 	private Integer idThmEmpleado;
-	
 	@Id
 	@Column(name="id_thm_rol_cabecera")
 	private Integer idThmRolCabecera;

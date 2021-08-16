@@ -47,6 +47,8 @@ public class BeanSegLogin implements Serializable {
 	}
 	
 	public String actionLogin() {
+		System.out.println(idSegUsuario);
+		System.out.println(clave);
 		try {
 			loginDTO=mSeguridades.login(idSegUsuario, clave, direccionIP);
 			//loginDTO.setDireccionIP(direccionIP);

@@ -59,7 +59,7 @@ public class AsoPersona implements Serializable {
 	private List<CredGarante> credGarantes;
 
 	//bi-directional many-to-one association to SegUsuario
-	@OneToMany(mappedBy="asoPersona")
+	@OneToMany(mappedBy="asoPersona",cascade = CascadeType.ALL)
 	private List<SegUsuario> segUsuarios;
 
 	public AsoPersona() {
