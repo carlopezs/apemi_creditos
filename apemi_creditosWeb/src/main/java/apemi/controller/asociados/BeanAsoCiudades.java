@@ -20,27 +20,30 @@ public class BeanAsoCiudades implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@EJB
 	private ManagerAsociados managerAsociados;
+
 	
 	@Inject
 	private BeanSegLogin beanSegLogin;
 	
+
 	private AsoCiudad nuevaCiudad;
 	private List<AsoCiudad> listaCiudades;
 
 	public BeanAsoCiudades() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public String actionMenuCiudades() {
 		listaCiudades = managerAsociados.findAllCiudades();
 		return "ciudades";
 	}
-	
+
 	public void actionListenerInsertarNuevaCiudad() {
 		try {
 			managerAsociados.insertarCiudad(nuevaCiudad);
 			JSFUtil.crearMensajeINFO("Ciudad insertada correctamente");
 		} catch (Exception e) {
+
 			JSFUtil.crearMensajeERROR(e.getMessage());
 			e.printStackTrace();			
 		}
@@ -48,12 +51,11 @@ public class BeanAsoCiudades implements Serializable {
 	
 	public void actionListenerActualizarEdicionUsuario() {
 		try {
-			managerAsociados.actualizarCiudad(beanSegLogin, nuevaCiudad);
+			managerAsociados.actualizarCiudad(beanSegLogin.getLoginDTO(), nuevaCiudad);
 		} catch (Exception e) {
 			// TODO: handle exception
+
 		}
 	}
-	
-	
 
 }
