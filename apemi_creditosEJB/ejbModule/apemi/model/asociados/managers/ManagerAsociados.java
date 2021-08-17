@@ -33,7 +33,11 @@ public class ManagerAsociados {
     }
     
     public void actualizarCiudad(LoginDTO loginDTO ,AsoCiudad edicionCiudad) throws Exception {
+    	System.out.println(edicionCiudad.getNombre());
+    	System.out.println(edicionCiudad.getIdCiudad());
     	AsoCiudad ciudad = (AsoCiudad) mDAO.findById(AsoCiudad.class, edicionCiudad.getIdCiudad());
+    	
+    	
     	ciudad.setNombre(edicionCiudad.getNombre());
     	mDAO.actualizar(ciudad);
     	mAuditoria.mostrarLog(loginDTO, getClass(), "Actualizar ciudad", "Se actualizó la ciudad"+ciudad.getNombre());
