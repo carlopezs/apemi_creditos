@@ -5,9 +5,11 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import apemi.controller.JSFUtil;
+import apemi.controller.seguridades.BeanSegLogin;
 import apemi.model.asociados.managers.ManagerAsociados;
 import apemi.model.core.entities.AsoCiudad;
 
@@ -18,6 +20,9 @@ public class BeanAsoCiudades implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@EJB
 	private ManagerAsociados managerAsociados;
+	
+	@Inject
+	private BeanSegLogin beanSegLogin;
 	
 	private AsoCiudad nuevaCiudad;
 	private List<AsoCiudad> listaCiudades;
@@ -36,7 +41,16 @@ public class BeanAsoCiudades implements Serializable {
 			managerAsociados.insertarCiudad(nuevaCiudad);
 			JSFUtil.crearMensajeINFO("Ciudad insertada correctamente");
 		} catch (Exception e) {
-			
+			JSFUtil.crearMensajeERROR(e.getMessage());
+			e.printStackTrace();			
+		}
+	}
+	
+	public void actionListenerActualizarEdicionUsuario() {
+		try {
+			managerAsociados.actualizarCiudad(beanSegLogin, nuevaCiudad);
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
 	}
 	
