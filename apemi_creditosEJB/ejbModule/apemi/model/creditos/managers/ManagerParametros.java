@@ -42,13 +42,13 @@ public class ManagerParametros {
 		// return nuevo;
 	}
 
-	public void actualizarCredParametro(int idParamCredUpdate, BigDecimal interesUpdate, BigDecimal montoMinimoUpdate,
-			long plazoMaxMontoMinUpdate, BigDecimal seguroDesgravamenUpdate) throws Exception {
-		CredParametro credParametro = (CredParametro) mDAO.findById(CredParametro.class, idParamCredUpdate);
-		credParametro.setInteres(interesUpdate);
-		credParametro.setMontoMinimo(montoMinimoUpdate);
-		credParametro.setPlazoMaxMontoMin(plazoMaxMontoMinUpdate);
-		credParametro.setSeguroDesgravamen(seguroDesgravamenUpdate);
+	public void actualizarCredParametro(CredParametro edicionParametros) throws Exception {
+		CredParametro credParametro = (CredParametro) mDAO.findById(CredParametro.class,
+				edicionParametros.getIdParametroCredito());
+		credParametro.setInteres(edicionParametros.getInteres());
+		credParametro.setMontoMinimo(edicionParametros.getMontoMinimo());
+		credParametro.setPlazoMaxMontoMin(edicionParametros.getPlazoMaxMontoMin());
+		credParametro.setSeguroDesgravamen(edicionParametros.getSeguroDesgravamen());
 
 		mDAO.actualizar(credParametro);
 	}
