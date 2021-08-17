@@ -27,7 +27,7 @@ public class ManagerParametros {
 	}
 
 	public List<CredParametro> findAllCredParametro() {
-		return mDAO.findAll(CredParametro.class);
+		return mDAO.findAll(CredParametro.class, "idParametroCredito");
 	}
 
 	public void insertarCredParametro(BigDecimal interes, BigDecimal montoMinimo, long plazoMaxMontoMin,

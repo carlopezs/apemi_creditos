@@ -68,16 +68,17 @@ public class BeanCredParametros implements Serializable {
 		}
 	}
 
-	public void actionListenerMostarCredParametros() {
-		listaCredParametro = managerParametros.findAllCredParametro();
-	}
-
 	public List<CredParametro> getListaCredParametro() {
 		return listaCredParametro;
 	}
 
 	public void setListaCredParametro(List<CredParametro> listaCredParametro) {
 		this.listaCredParametro = listaCredParametro;
+	}
+
+	public String actionListenerMostarCredParametros() {
+		listaCredParametro = managerParametros.findAllCredParametro();
+		return "parametros";
 	}
 
 	public int getId_parametro_credito() {
