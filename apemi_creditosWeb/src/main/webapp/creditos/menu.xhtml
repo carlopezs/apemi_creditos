@@ -40,6 +40,7 @@
 				<p:inputText value="#{beanCredParametros.seguro_desgravamen}" />
 				<p:commandButton value="Guardar"
 					action="#{beanCredParametros.actionListenerInsertarCredParametro()}"
+					actionListener="#{beanCredParametros.actionListenerMostarCredParametros()}"
 					icon="pi pi-save" update="@form"></p:commandButton>
 			</p:panelGrid>
 		</p:panel>
@@ -60,6 +61,9 @@
 		</p:column>
 		<p:column headerText="Seguro desgravamen">
 			<h:outputText value="#{b.seguro_desgravamen}" />
+		</p:column>
+		<p:column headerText="Opciones">
+			<h:outputText value="" />
 		</p:column>
 	</p:dataTable>
 </body>

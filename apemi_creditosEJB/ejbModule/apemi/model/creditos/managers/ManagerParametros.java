@@ -27,19 +27,19 @@ public class ManagerParametros {
 	}
 
 	public List<CredParametro> findAllCredParametro() {
-		return mDAO.findAll(CredParametro.class);
+		return mDAO.findAll(CredParametro.class, "idParametroCredito");
 	}
 
-	public void insertarCredParametro(BigDecimal interes, BigDecimal montoMinimo,
-			long plazoMaxMontoMin, BigDecimal seguroDesgravamen) throws Exception {
+	public void insertarCredParametro(BigDecimal interes, BigDecimal montoMinimo, long plazoMaxMontoMin,
+			BigDecimal seguroDesgravamen) throws Exception {
 		CredParametro nuevo = new CredParametro();
-		//nuevo.setIdParametroCredito(idParamCred);
+		// nuevo.setIdParametroCredito(idParamCred);
 		nuevo.setInteres(interes);
 		nuevo.setMontoMinimo(montoMinimo);
 		nuevo.setPlazoMaxMontoMin(plazoMaxMontoMin);
 		nuevo.setSeguroDesgravamen(seguroDesgravamen);
 		mDAO.insertar(nuevo);
-		//return nuevo;
+		// return nuevo;
 	}
 
 	public void actualizarCredParametro(int idParamCredUpdate, BigDecimal interesUpdate, BigDecimal montoMinimoUpdate,

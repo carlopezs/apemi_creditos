@@ -41,8 +41,7 @@ public class BeanCredParametros implements Serializable {
 
 	public void actionListenerInsertarCredParametro() {
 		try {
-			managerParametros.insertarCredParametro(interes, monto_minimo, plazo_max_monto_min,
-					seguro_desgravamen);
+			managerParametros.insertarCredParametro(interes, monto_minimo, plazo_max_monto_min, seguro_desgravamen);
 			listaCredParametro = managerParametros.findAllCredParametro();
 			nuevoParametro = new CredParametro();
 			nuevoParametro.setInteres(interes);
@@ -67,6 +66,10 @@ public class BeanCredParametros implements Serializable {
 			JSFUtil.crearMensajeERROR(e.getMessage());
 			e.printStackTrace();
 		}
+	}
+
+	public void actionListenerMostarCredParametros() {
+		listaCredParametro = managerParametros.findAllCredParametro();
 	}
 
 	public List<CredParametro> getListaCredParametro() {
