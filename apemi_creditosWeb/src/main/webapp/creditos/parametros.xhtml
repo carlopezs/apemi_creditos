@@ -63,7 +63,9 @@
 				<h:outputText value="#{b.seguroDesgravamen}" />
 			</p:column>
 			<p:column headerText="Opciones">
-				<p:commandButton icon="pi pi-pencil" title="editar" />
+				<p:commandButton icon="pi pi-pencil" title="editar"
+					actionListener="#{beanCredParametros.actionListenerCargarParametro(b)}"
+					oncomplete="PF('dialogoEdicion').show()" update=":formEdicion" />
 				<p:commandButton icon="pi pi-times-circle" title="eliminar"
 					styleClass="ui-button-danger" update="@form"
 					actionListener="#{beanCredParametros.actionListenerEliminarParametro(b.idParametroCredito)}">
