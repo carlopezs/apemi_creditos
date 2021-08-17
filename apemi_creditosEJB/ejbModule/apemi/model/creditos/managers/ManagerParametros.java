@@ -18,12 +18,6 @@ import apemi.model.core.managers.ManagerDAO;
 @LocalBean
 public class ManagerParametros {
 
-	// id_parametro_credito
-	// interes
-	// monto_minimo
-	// plazo_max_monto_min
-	// seguro_desgravamen
-
 	@EJB
 	private ManagerDAO mDAO;
 	@EJB
@@ -36,16 +30,16 @@ public class ManagerParametros {
 		return mDAO.findAll(CredParametro.class);
 	}
 
-	public CredParametro insertarCredParametro(int idParamCred, BigDecimal interes, BigDecimal montoMinimo,
+	public void insertarCredParametro(BigDecimal interes, BigDecimal montoMinimo,
 			long plazoMaxMontoMin, BigDecimal seguroDesgravamen) throws Exception {
 		CredParametro nuevo = new CredParametro();
-		nuevo.setIdParametroCredito(idParamCred);
+		//nuevo.setIdParametroCredito(idParamCred);
 		nuevo.setInteres(interes);
 		nuevo.setMontoMinimo(montoMinimo);
 		nuevo.setPlazoMaxMontoMin(plazoMaxMontoMin);
 		nuevo.setSeguroDesgravamen(seguroDesgravamen);
 		mDAO.insertar(nuevo);
-		return nuevo;
+		//return nuevo;
 	}
 
 	public void actualizarCredParametro(int idParamCredUpdate, BigDecimal interesUpdate, BigDecimal montoMinimoUpdate,

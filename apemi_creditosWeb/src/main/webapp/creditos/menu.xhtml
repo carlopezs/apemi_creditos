@@ -31,17 +31,36 @@
 		<p:panel>
 			<p:panelGrid columns="2">
 				<h:outputText value="Interés:" />
-				<p:inputText value="#{beanSegLogin.idSegUsuario}" />
+				<p:inputText value="#{beanCredParametros.interes}" />
 				<h:outputText value="Monto mínimo:" />
-				<p:password value="#{beanSegLogin.clave}" />
+				<p:inputText value="#{beanCredParametros.monto_minimo}" />
 				<h:outputText value="Plazo máximo:" />
-				<p:inputText value="#{beanSegLogin.idSegUsuario}" />
+				<p:inputText value="#{beanCredParametros.plazo_max_monto_min}" />
 				<h:outputText value="Seguro desgravamen:" />
-				<p:password value="#{beanSegLogin.clave}" />
-				<p:commandButton value="Login"
-					action="#{beanSegLogin.actionLogin()}" icon="pi pi-key"></p:commandButton>
+				<p:inputText value="#{beanCredParametros.seguro_desgravamen}" />
+				<p:commandButton value="Guardar"
+					action="#{beanCredParametros.actionListenerInsertarCredParametro()}"
+					icon="pi pi-save" update="@form"></p:commandButton>
 			</p:panelGrid>
 		</p:panel>
 	</h:form>
+	<p:dataTable value="#{beanCredParametros.listaCredParametro}" var="b"
+		emptyMessage="No hay registro aún." paginator="true" rows="30">
+		<p:column headerText="ID" style="width:50px">
+			<h:outputText value="#{b.id_parametro_credito}" />
+		</p:column>
+		<p:column headerText="Interés">
+			<h:outputText value="#{b.interes}" />
+		</p:column>
+		<p:column headerText="Monto mínimo">
+			<h:outputText value="#{b.monto_minimo}" />
+		</p:column>
+		<p:column headerText="Plazo máximo">
+			<h:outputText value="#{b.plazo_max_monto_min}" />
+		</p:column>
+		<p:column headerText="Seguro desgravamen">
+			<h:outputText value="#{b.seguro_desgravamen}" />
+		</p:column>
+	</p:dataTable>
 </body>
 </html>
