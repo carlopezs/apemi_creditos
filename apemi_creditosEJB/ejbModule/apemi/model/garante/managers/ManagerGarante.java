@@ -75,7 +75,7 @@ public class ManagerGarante {
     } 
     
   //Desactivar Garante
-    public void activarDesactivarAsociado(int idGarante) throws Exception {
+    public void activarDesactivarGarante(int idGarante) throws Exception {
     	CredGarante garante=(CredGarante) mDAO.findById(CredGarante.class, idGarante);
     	garante.setActivo(!garante.getActivo());
     	mDAO.actualizar(garante);    	
