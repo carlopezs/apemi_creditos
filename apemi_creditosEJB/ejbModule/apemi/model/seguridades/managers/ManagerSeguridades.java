@@ -134,10 +134,12 @@ public class ManagerSeguridades {
     		throw new Exception("Debe indicar una clave");
     	}
     	SegUsuario usuario=(SegUsuario) mDAO.findById(SegUsuario.class, idSegUsuario);
+    	
     	if(usuario==null) {
     		mAuditoria.mostrarLog(getClass(), "login", "No existe usuario "+idSegUsuario);
     		throw new Exception("Error en credenciales.");
     	}
+    	loginDTO.setAsoPersona(usuario.getAsoPersona());
     		
     	if(usuario.getClave().equals(clave)) {
     		if(usuario.getActivo()==false) {

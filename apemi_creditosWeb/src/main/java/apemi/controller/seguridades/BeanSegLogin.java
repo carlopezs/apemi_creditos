@@ -51,8 +51,14 @@ public class BeanSegLogin implements Serializable {
 		System.out.println(clave);
 		try {
 			loginDTO=mSeguridades.login(idSegUsuario, clave, direccionIP);
+			if (loginDTO.getAsoPersona().getCedula().equals("1002003000")) {
+				return "menu?faces-redirect=true";
+			}
+			else {
+				return "credAsociados?faces-redirect=true";
+			}
 			//loginDTO.setDireccionIP(direccionIP);
-			return "menu?faces-redirect=true";
+		
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR(e.getMessage());
 			e.printStackTrace();

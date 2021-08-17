@@ -38,7 +38,7 @@
 						<f:selectItem itemLabel="Seleccione el usuario..."
 							noSelectionOption="true" />
 						<f:selectItems value="#{beanSegAsignaciones.listaUsuarios}"
-							var="u" itemLabel="#{u.apellidos} #{u.nombres}"
+							var="u" itemLabel="#{u.asoPersona.apellidos} #{u.asoPersona.nombres}"
 							itemValue="#{u.idSegUsuario}"></f:selectItems>
 						<p:ajax update="tablaAsignaciones"
 							listener="#{beanSegAsignaciones.actionListenerSeleccionarUsuario()}"></p:ajax>

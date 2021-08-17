@@ -4,11 +4,13 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
+
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+
+
 
 import apemi.controller.JSFUtil;
 import apemi.model.asociados.managers.ManagerAsociados;
@@ -17,18 +19,17 @@ import apemi.model.core.entities.AsoPersona;
 import apemi.model.core.entities.SegUsuario;
 import apemi.model.seguridades.managers.ManagerSeguridades;
 
-
-
 @Named
 @SessionScoped
 public class BeanSegUsuarios implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@EJB
 	private ManagerSeguridades managerSeguridades;
 	@EJB
 	private ManagerAsociados managerAsociados;
-	
+
 	private List<SegUsuario> listaUsuarios;
 	private SegUsuario nuevoUsuario;
 	private AsoPersona nuevaPersona;
@@ -37,79 +38,85 @@ public class BeanSegUsuarios implements Serializable {
 	private int idCiudad;
 	private int idCiudadEdicion;
 	private List<AsoCiudad> listaCiudades;
-	
+	private static String ENCRYPT_KEY = "clave-compartida-no-reveloar-nunca";
+
 	@Inject
 	private BeanSegLogin beanSegLogin;
-	
-	
+
 	public BeanSegUsuarios() {
-		
+
 	}
-	
-	
+
 	public String actionMenuUsuarios() {
-		 
+
 		listaCiudades = managerAsociados.findAllCiudades();
-		listaUsuarios=managerSeguridades.findAllUsuarios();
+		listaUsuarios = managerSeguridades.findAllUsuarios();
 		return "usuarios";
 	}
-	
+
 	public void actionListenerActivarDesactivarUsuario(int idSegUsuario) {
 		try {
 			managerSeguridades.activarDesactivarUsuario(idSegUsuario);
-			listaUsuarios=managerSeguridades.findAllUsuarios();
+			listaUsuarios = managerSeguridades.findAllUsuarios();
 			JSFUtil.crearMensajeINFO("Usuario activado/desactivado");
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR(e.getMessage());
 			e.printStackTrace();
 		}
 	}
-	
+
 	public String actionMenuNuevoUsuario() {
 		nuevaPersona = new AsoPersona();
 		nuevaPersona.setFechaNacimiento(new Date());
-		nuevoUsuario=new SegUsuario();
+		nuevoUsuario = new SegUsuario();
 		nuevoUsuario.setActivo(true);
 		return "usuarios_nuevo";
 	}
-	
+
 	public void actionListenerInsertarNuevoUsuario() {
+
 		try {
+
+			nuevoUsuario.setClave(null);
 			managerSeguridades.insertarUsuario(nuevoUsuario, nuevaPersona, idCiudad);
-			listaUsuarios=managerSeguridades.findAllUsuarios();
-			nuevoUsuario=new SegUsuario();
+			listaUsuarios = managerSeguridades.findAllUsuarios();
+			nuevoUsuario = new SegUsuario();
 			nuevoUsuario.setActivo(true);
 			nuevaPersona = new AsoPersona();
+
 			JSFUtil.crearMensajeINFO("Usuario insertado.");
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR(e.getMessage());
 			e.printStackTrace();
 		}
 	}
+
 	
+
 	public String actionSeleccionarEdicionUsuario(SegUsuario usuario) {
 		System.out.println(usuario.getClave());
-		edicionUsuario=usuario;
-		System.out.println("edicionUsuario: "+edicionUsuario.getClave());
+		edicionUsuario = usuario;
+		System.out.println("edicionUsuario: " + edicionUsuario.getClave());
 		edicionPersona = usuario.getAsoPersona();
 		return "usuarios_edicion";
 	}
-	
+
 	public void actionListenerActualizarEdicionUsuario() {
 		try {
-			managerSeguridades.actualizarUsuario(beanSegLogin.getLoginDTO(),edicionPersona, idCiudadEdicion, edicionUsuario);
-			listaUsuarios=managerSeguridades.findAllUsuarios();
+			managerSeguridades.actualizarUsuario(beanSegLogin.getLoginDTO(), edicionPersona, idCiudadEdicion,
+					edicionUsuario);
+			listaUsuarios = managerSeguridades.findAllUsuarios();
 			JSFUtil.crearMensajeINFO("Usuario actualizado.");
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR(e.getMessage());
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void actionListenerEliminarUsuario(int idSegUsuario) {
 		try {
 			managerSeguridades.eliminarUsuario(idSegUsuario);
-			listaUsuarios=managerSeguridades.findAllUsuarios();
+			listaUsuarios = managerSeguridades.findAllUsuarios();
 			JSFUtil.crearMensajeINFO("Usuario eliminado.");
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR(e.getMessage());
@@ -120,7 +127,6 @@ public class BeanSegUsuarios implements Serializable {
 	public List<SegUsuario> getListaUsuarios() {
 		return listaUsuarios;
 	}
-
 
 	public void setListaUsuarios(List<SegUsuario> listaUsuarios) {
 		this.listaUsuarios = listaUsuarios;
@@ -166,36 +172,28 @@ public class BeanSegUsuarios implements Serializable {
 		this.listaCiudades = listaCiudades;
 	}
 
-
 	public int getIdCiudad() {
 		return idCiudad;
 	}
-
 
 	public void setIdCiudad(int idCiudad) {
 		this.idCiudad = idCiudad;
 	}
 
-
 	public AsoPersona getEdicionPersona() {
 		return edicionPersona;
 	}
-
 
 	public void setEdicionPersona(AsoPersona edicionPersona) {
 		this.edicionPersona = edicionPersona;
 	}
 
-
 	public int getIdCiudadEdicion() {
 		return idCiudadEdicion;
 	}
 
-
 	public void setIdCiudadEdicion(int idCiudadEdicion) {
 		this.idCiudadEdicion = idCiudadEdicion;
 	}
-	
-	
 
 }

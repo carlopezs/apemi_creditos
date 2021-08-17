@@ -4,12 +4,14 @@ package apemi.model.seguridades.dtos;
 import java.util.ArrayList;
 import java.util.List;
 
+import apemi.model.core.entities.AsoPersona;
 import apemi.model.core.entities.SegModulo;
 
 public class LoginDTO {
 	private int idSegUsuario;
 	private String correo;
 	private String direccionIP;
+	private AsoPersona asoPersona;
 	private List<SegModulo> listaModulos;
 	
 	public LoginDTO() {
@@ -39,5 +41,13 @@ public class LoginDTO {
 	public void setDireccionIP(String direccionIP) {
 		this.direccionIP = direccionIP;
 	}
+	public AsoPersona getAsoPersona() {
+		return asoPersona;
+	}
+	public void setAsoPersona(AsoPersona asoPersona) {
+		this.asoPersona = asoPersona;
+	}
+	
+	
 	
 }
