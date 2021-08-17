@@ -21,10 +21,12 @@ public class BeanAsoCiudades implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@EJB
 	private ManagerAsociados managerAsociados;
+
 	
 	@Inject
 	private BeanSegLogin beanSegLogin;
 	
+
 	private AsoCiudad nuevaCiudad;
 	private AsoCiudad edicionCiudad;
 	private List<AsoCiudad> listaCiudades;
@@ -32,13 +34,13 @@ public class BeanAsoCiudades implements Serializable {
 	public BeanAsoCiudades() {
 	
 	}
-	
+
 	public String actionMenuCiudades() {
 		nuevaCiudad = new AsoCiudad();
 		listaCiudades = managerAsociados.findAllCiudades();
 		return "ciudades";
 	}
-	
+
 	public void actionListenerInsertarNuevaCiudad() {
 		try {
 			managerAsociados.insertarCiudad(nuevaCiudad);
@@ -46,6 +48,7 @@ public class BeanAsoCiudades implements Serializable {
 			nuevaCiudad = new AsoCiudad(); 
 			JSFUtil.crearMensajeINFO("Ciudad insertada correctamente");
 		} catch (Exception e) {
+
 			JSFUtil.crearMensajeERROR(e.getMessage());
 			e.printStackTrace();			
 		}
@@ -53,6 +56,7 @@ public class BeanAsoCiudades implements Serializable {
 	
 	public void actionListenerActualizarEdicionCiudad() {
 		try {
+
 			managerAsociados.actualizarCiudad(beanSegLogin.getLoginDTO(), edicionCiudad);
 			JSFUtil.crearMensajeINFO("Ciudad actualizada");
 		} catch (Exception e) {
@@ -109,8 +113,7 @@ public class BeanAsoCiudades implements Serializable {
 	}
 	
 	
-	
-	
-	
+
+
 
 }

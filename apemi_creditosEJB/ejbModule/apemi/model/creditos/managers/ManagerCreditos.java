@@ -1,6 +1,9 @@
 package apemi.model.creditos.managers;
 
+
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -21,27 +24,53 @@ public class ManagerCreditos {
       
     }
     
-    public List<DTOAmortizacion> generarAmortizacion(double monto ,int nroCuotas,int tasaAnual){
+    public List<DTOAmortizacion> generarAmortizacion(double monto ,double nroCuotas,double tasaAnual){
     	double interes;
     	double capitalCuota;
+    	Date fechaCuota = new Date() ;
     	double saldo = monto;
-    	double plazoAños = nroCuotas / 12;	
-    	tasaAnual = tasaAnual /100;
-    	double tasaPeriodica = (Math.pow(1+plazoAños,(1/12)))-1;
-    	double valorCuota = monto*(tasaPeriodica/1-Math.pow((1+tasaPeriodica),-nroCuotas));
+    	tasaAnual = tasaAnual /100;	
+    	double tasaPeriodica = (Math.pow(1.0+tasaAnual,(1.0/12.0)))-1.0;
+    	double valorCuota = monto*(tasaPeriodica/(1-Math.pow(1+tasaPeriodica,-nroCuotas)));
+    	System.out.println("Esta es el valor de la cuota"+valorCuota);
     	List<DTOAmortizacion> listaAmortizacion = new ArrayList<DTOAmortizacion>();
     	for (int i = 0; i <= nroCuotas; i++) {
     		if (i == 0) {
-    			listaAmortizacion.add(new DTOAmortizacion(i, valorCuota, 0, 0, saldo));
+    
+    			listaAmortizacion.add(new DTOAmortizacion(i, 0, 0, 0, saldo,fechaCuota));
 			}else {
 				interes = saldo * tasaPeriodica;
 				capitalCuota = valorCuota - interes;
 				saldo = saldo - capitalCuota;
-				listaAmortizacion.add(new DTOAmortizacion(i, valorCuota, interes, capitalCuota, saldo));
+				fechaCuota = aumentarMesFecha(fechaCuota);
+				listaAmortizacion.add(new DTOAmortizacion(i, valorCuota, interes, capitalCuota, saldo, fechaCuota));
 			}
 			
 		}
     	return listaAmortizacion;
     }
 
+    public Date aumentarMesFecha(Date fechaCuota ) {
+    	int año;
+    	int mes;
+    	int dia;
+    	
+    	Calendar cal = Calendar.getInstance();
+    	cal.setTime(fechaCuota);
+    	
+    
+    	dia = cal.get(Calendar.DATE);
+    	mes = cal.get(Calendar.MONTH);
+    	año = cal.get(Calendar.YEAR);
+    	
+    	int mesPrueba = mes + 1;
+    	if (mesPrueba == 12) {
+			año++;
+			mes=-1;
+		}
+    	
+    	cal.set(año , mes + 1,dia);
+    	
+    	return cal.getTime();
+    }
 }

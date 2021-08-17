@@ -1,24 +1,28 @@
 package appemi.model.creditos.dtos;
 
+import java.util.Date;
+
 public class DTOAmortizacion {
 	private int nroCuota;
 	private double valorCuota;
 	private double interes;
 	private double capital;
 	private double saldo;
+	private Date fechaCuota;
 	
 	
 	
-	public DTOAmortizacion(int nroCuota, double valorCuota, double interes, double capital, double saldo) {
+	
+	public DTOAmortizacion(int nroCuota, double valorCuota, double interes, double capital, double saldo,
+			Date fechaCuota) {
 		super();
 		this.nroCuota = nroCuota;
 		this.valorCuota = valorCuota;
 		this.interes = interes;
 		this.capital = capital;
 		this.saldo = saldo;
+		this.fechaCuota = fechaCuota;
 	}
-	
-	
 	public int getNroCuota() {
 		return nroCuota;
 	}
@@ -48,6 +52,16 @@ public class DTOAmortizacion {
 	}
 	public void setSaldo(double saldo) {
 		this.saldo = saldo;
+	}
+
+
+	public Date getFechaCuota() {
+		return fechaCuota;
+	}
+
+
+	public void setFechaCuota(Date fechaCuota) {
+		this.fechaCuota = fechaCuota;
 	}
 	
 	
