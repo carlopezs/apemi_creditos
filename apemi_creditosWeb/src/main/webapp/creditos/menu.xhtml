@@ -14,7 +14,8 @@
 			<p:menuitem value="Regresar" icon="pi pi-home"
 				action="/menu?faces-redirect=true" />
 			<p:menuitem value="Creditos" icon="pi pi-credit-card" />
-			<p:menuitem value="Parametros de créditos" icon="pi pi-briefcase" />
+			<p:menuitem value="Parametros de créditos" icon="pi pi-briefcase"
+				action="parametros_creditos" />
 			<p:menuitem value="Garantes" icon="pi pi-users" />
 			<f:facet name="options">
 				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
@@ -27,44 +28,5 @@
 		</p:menubar>
 		<p:staticMessage severity="info" summary="Módulo de creditos"></p:staticMessage>
 	</h:form>
-	<h:form>
-		<p:panel>
-			<p:panelGrid columns="2">
-				<h:outputText value="Interés:" />
-				<p:inputText value="#{beanCredParametros.interes}" />
-				<h:outputText value="Monto mínimo:" />
-				<p:inputText value="#{beanCredParametros.monto_minimo}" />
-				<h:outputText value="Plazo máximo:" />
-				<p:inputText value="#{beanCredParametros.plazo_max_monto_min}" />
-				<h:outputText value="Seguro desgravamen:" />
-				<p:inputText value="#{beanCredParametros.seguro_desgravamen}" />
-				<p:commandButton value="Guardar"
-					action="#{beanCredParametros.actionListenerInsertarCredParametro()}"
-					actionListener="#{beanCredParametros.actionListenerMostarCredParametros()}"
-					icon="pi pi-save" update="@form"></p:commandButton>
-			</p:panelGrid>
-		</p:panel>
-	</h:form>
-	<p:dataTable value="#{beanCredParametros.listaCredParametro}" var="b"
-		emptyMessage="No hay registro aún." paginator="true" rows="30">
-		<p:column headerText="ID" style="width:50px">
-			<h:outputText value="#{b.id_parametro_credito}" />
-		</p:column>
-		<p:column headerText="Interés">
-			<h:outputText value="#{b.interes}" />
-		</p:column>
-		<p:column headerText="Monto mínimo">
-			<h:outputText value="#{b.monto_minimo}" />
-		</p:column>
-		<p:column headerText="Plazo máximo">
-			<h:outputText value="#{b.plazo_max_monto_min}" />
-		</p:column>
-		<p:column headerText="Seguro desgravamen">
-			<h:outputText value="#{b.seguro_desgravamen}" />
-		</p:column>
-		<p:column headerText="Opciones">
-			<h:outputText value="" />
-		</p:column>
-	</p:dataTable>
 </body>
 </html>
