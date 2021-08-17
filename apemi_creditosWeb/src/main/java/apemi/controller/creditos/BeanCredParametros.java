@@ -78,7 +78,7 @@ public class BeanCredParametros implements Serializable {
 
 	public String actionListenerMostarCredParametros() {
 		listaCredParametro = managerParametros.findAllCredParametro();
-		return "parametros";
+		return "parametros?faces-redirect=true";
 	}
 
 	public int getId_parametro_credito() {

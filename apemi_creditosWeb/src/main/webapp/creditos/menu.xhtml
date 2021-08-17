@@ -15,7 +15,7 @@
 				action="/menu?faces-redirect=true" />
 			<p:menuitem value="Creditos" icon="pi pi-credit-card" />
 			<p:menuitem value="Parametros de créditos" icon="pi pi-briefcase"
-				action="parametros_creditos" />
+				action="#{beanCredParametros.actionListenerMostarCredParametros()}" />
 			<p:menuitem value="Garantes" icon="pi pi-users" />
 			<f:facet name="options">
 				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
