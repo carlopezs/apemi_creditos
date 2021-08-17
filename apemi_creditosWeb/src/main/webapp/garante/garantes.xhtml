@@ -18,8 +18,8 @@
 	<h:form>
 		<p:menubar>
 			<p:menuitem value="Regresar" icon="pi pi-home" action="menu" />
-			<p:menuitem value="Nuevo Asociado" icon="pi pi-user-plus"
-				action="#{beanAsociado.actionMenuNuevoAsociado()}" />
+			<p:menuitem value="Nuevo Garante" icon="pi pi-user-plus"
+				action="#{beanGarante.actionMenuNuevoGarante()}" />
 			<f:facet name="options">
 				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
 					icon="pi pi-user">
@@ -32,33 +32,33 @@
 	</h:form>
 	<p:panel>
 		<h:form>
-			<p:dataTable value="#{beanAsociado.listaAsociados}" var="asociado"
+			<p:dataTable value="#{beanGarante.listaGarante}" var="garante"
 				paginator="true" rows="5">
 				<p:column headerText="ID">
-					<h:outputText value="#{asociado.idSegUsuario}" />
+					<h:outputText value="#{garante.idGarante}" />
 				</p:column>
-				<p:column headerText="APELLIDOS" filterBy="#{asociado.asoPersona.apellidos}"
+				<p:column headerText="APELLIDOS" filterBy="#{garante.asoPersona.apellidos}"
 					filterMatchMode="contains">
-					<h:outputText value="#{asociado.asoPersona.apellidos}" />
+					<h:outputText value="#{garante.asoPersona.apellidos}" />
 				</p:column>
-				<p:column headerText="NOMBRES" filterBy="#{asociado.asoPersona.nombres}"
+				<p:column headerText="NOMBRES" filterBy="#{garante.asoPersona.nombres}"
 					filterMatchMode="contains">
-					<h:outputText value="#{asociado.asoPersona.nombres}" />
+					<h:outputText value="#{garante.asoPersona.nombres}" />
 				</p:column>
-				<p:column headerText="CORREO" filterBy="#{asociado.asoPersona.correo}"
+				<p:column headerText="CORREO" filterBy="#{garante.asoPersona.correo}"
 					filterMatchMode="contains">
-					<h:outputText value="#{asociado.asoPersona.correo}" />
+					<h:outputText value="#{garante.asoPersona.correo}" />
 				</p:column>
 				<p:column headerText="ACTIVO">
-					<h:outputText value="#{asociado.activo}" />
+					<h:outputText value="#{garante.activo}" />
 				</p:column>
 				<p:column headerText="OPCIONES">
 					<p:commandButton icon="pi pi-check-circle"
 						title="activar/desactivar" styleClass="ui-button-warning"
 						update="@form"
-						actionListener="#{beanAsociado.actionListenerActivarDesactivarAsociado(asociado.idSegUsuario)}" />
+						actionListener="#{beanGarante.actionListenerActivarDesactivarGarante(garante.idGarante)}" />
 					<p:commandButton icon="pi pi-pencil" title="editar"
-						action="#{beanAsociado.actionSeleccionarEdicionAsociado(asociado)}" />
+						action="#{beanGarante.actionSeleccionarEdicionGarante(garante)}" />
 					
 				</p:column>
 			</p:dataTable>
