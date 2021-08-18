@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+	<f:event listener="#{beanSegLogin.actionVerificarLogin()}"
+		type="preRenderView"></f:event>
+</f:metadata>
+<h:head>
+	<title>Garantes</title>
+</h:head>
+<body>
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Regresar" icon="pi pi-home" action="garantes" />
+			<f:facet name="options">
+				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
+					icon="pi pi-user">
+					<p:menuitem value="Perfil" icon="pi pi-cog"></p:menuitem>
+					<p:menuitem value="Cerrar sesión" icon="pi pi-sign-out"
+						action="#{beanSegLogin.actionCerrarSesion()}"></p:menuitem>
+				</p:menuButton>
+			</f:facet>
+		</p:menubar>
+	</h:form>
+	<p:panel>
+		<h:form>
+			<p:panelGrid columns="2">
+				<h:outputText value="Cédula:" />
+				<p:inputText value="#{beanGarante.nuevaPersona.cedula}"
+					required="true" requiredMessage="Ingrese la cédula" />
+				<h:outputText value="Nombres:" />
+				<p:inputText value="#{beanGarante.nuevaPersona.nombres}"
+					required="true" requiredMessage="Ingrese los nombres" />
+				<h:outputText value="Apellidos:" />
+				<p:inputText value="#{beanGarante.nuevaPersona.apellidos}"
+					required="true" requiredMessage="Ingrese los apellidos" />
+				<p:selectOneMenu value="#{beanGarante.nuevaPersona.genero}">
+					<f:selectItem itemLabel="Masculino" itemValue="masculino"></f:selectItem>
+					<f:selectItem itemLabel="Femenino" itemValue="femenino"></f:selectItem>
+					<f:selectItem itemLabel="Otro" itemValue="otro"></f:selectItem>
+				</p:selectOneMenu>	
+				<p:selectOneMenu value="#{beanGarante.idCiudad}">
+					<f:selectItems value="#{beanGarante.listaCiudades}" var="c"
+						itemLabel="#{c.nombre}" itemValue="#{c.idCiudad}"></f:selectItems>
+				</p:selectOneMenu>
+				<h:outputText value="Dirección de residencia:" />
+				<p:inputText value="#{beanGarante.nuevaPersona.direccion}"
+					required="true"
+					requiredMessage="Ingrese la dirección de residencia" />
+				<h:outputText value="Correo:" />
+				<p:inputText value="#{beanGarante.nuevaPersona.correo}"
+					required="true" requiredMessage="Ingrese el correo" />
+				<h:outputText value="Teléfono Convencional" />
+				<p:inputText value="#{beanGarante.nuevaPersona.telefono}"
+					required="true"
+					requiredMessage="Ingrese el número de télefono convencional" />
+				<h:outputText value="Teléfono móvil:" />
+				<p:inputText value="#{beanGarante.nuevaPersona.movil}"
+					required="true"
+					requiredMessage="Ingrese el número de teléfono móvil" />
+				<h:outputText value="Fecha de nacimiento:" />
+				
+				<p:datePicker
+					value="#{beanGarante.nuevaPersona.fechaNacimiento}"
+					showTime="false" monthNavigator="true" yearNavigator="true" yearRange="1935:1960"/>
+
+				
+				<p:commandButton value="Guardar" icon="pi pi-save" update="@form"
+					actionListener="#{beanGarante.actionListenerInsertarNuevoGarante()}"></p:commandButton>
+			</p:panelGrid>
+		</h:form>
+	</p:panel>
+</body>
+</html>
