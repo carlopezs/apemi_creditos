@@ -8,21 +8,22 @@ public class DTOAmortizacion {
 	private double interes;
 	private double capital;
 	private double saldo;
+	private double seguroDesgravamen;
 	private Date fechaCuota;
 	
 	
-	
-	
 	public DTOAmortizacion(int nroCuota, double valorCuota, double interes, double capital, double saldo,
-			Date fechaCuota) {
+			double seguroDesgravamen, Date fechaCuota) {
 		super();
 		this.nroCuota = nroCuota;
 		this.valorCuota = valorCuota;
 		this.interes = interes;
 		this.capital = capital;
 		this.saldo = saldo;
+		this.seguroDesgravamen = seguroDesgravamen;
 		this.fechaCuota = fechaCuota;
 	}
+	
 	public int getNroCuota() {
 		return nroCuota;
 	}
@@ -54,12 +55,18 @@ public class DTOAmortizacion {
 		this.saldo = saldo;
 	}
 
+	public double getSeguroDesgravamen() {
+		return seguroDesgravamen;
+	}
+
+	public void setSeguroDesgravamen(double seguroDesgravamen) {
+		this.seguroDesgravamen = seguroDesgravamen;
+	}
 
 	public Date getFechaCuota() {
 		return fechaCuota;
 	}
-
-
+	
 	public void setFechaCuota(Date fechaCuota) {
 		this.fechaCuota = fechaCuota;
 	}

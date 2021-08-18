@@ -24,9 +24,10 @@ public class ManagerCreditos {
       
     }
     
-    public List<DTOAmortizacion> generarAmortizacion(double monto ,double nroCuotas,double tasaAnual){
+    public List<DTOAmortizacion> generarAmortizacion(double monto ,double nroCuotas,double tasaAnual,double porcentajeSegDesgra){
     	double interes;
     	double capitalCuota;
+    	double desgravamen;
     	Date fechaCuota = new Date() ;
     	double saldo = monto;
     	tasaAnual = tasaAnual /100;	
@@ -37,13 +38,14 @@ public class ManagerCreditos {
     	for (int i = 0; i <= nroCuotas; i++) {
     		if (i == 0) {
     
-    			listaAmortizacion.add(new DTOAmortizacion(i, 0, 0, 0, saldo,fechaCuota));
+    			listaAmortizacion.add(new DTOAmortizacion(i, 0, 0, 0, saldo,0,fechaCuota));
 			}else {
 				interes = saldo * tasaPeriodica;
 				capitalCuota = valorCuota - interes;
+				desgravamen = (porcentajeSegDesgra/100) * saldo; 
 				saldo = saldo - capitalCuota;
 				fechaCuota = aumentarMesFecha(fechaCuota);
-				listaAmortizacion.add(new DTOAmortizacion(i, valorCuota, interes, capitalCuota, saldo, fechaCuota));
+				listaAmortizacion.add(new DTOAmortizacion(i, valorCuota, interes, capitalCuota, saldo, desgravamen, fechaCuota));
 			}
 			
 		}

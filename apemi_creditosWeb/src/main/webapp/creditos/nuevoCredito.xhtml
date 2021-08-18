@@ -119,6 +119,12 @@
 						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
 					</h:outputText>
 				</p:column>
+				
+				<p:column headerText="Seguro de desgravamen">
+					<h:outputText value="#{amortizacion.seguroDesgravamen}">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
 
 				<p:column headerText="Saldo">
 					<h:outputText value="#{amortizacion.saldo}">
@@ -126,7 +132,7 @@
 					</h:outputText>
 				</p:column>
 
-				<p:column headerText="Fecha de pago">
+				<p:column headerText="Fecha de vencimiento">
 					<h:outputText value="#{amortizacion.fechaCuota}">
 						<f:convertDateTime dateStyle="long" />
 					</h:outputText>

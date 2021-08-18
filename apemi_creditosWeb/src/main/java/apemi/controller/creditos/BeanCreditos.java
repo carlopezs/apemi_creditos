@@ -24,7 +24,6 @@ public class BeanCreditos implements Serializable {
 	private double monto;
 	private double nroCuotas;
 
-
 	List<DTOAmortizacion> listaAmortizacion = new ArrayList<DTOAmortizacion>();
 	private static final long serialVersionUID = 1L;
 
@@ -34,7 +33,8 @@ public class BeanCreditos implements Serializable {
 
 	public void actionListenerMostarTablaDeAmortizacion() {
 		List<CredParametro> parametros = managerParametros.findAllCredParametro();
-		listaAmortizacion = managerCreditos.generarAmortizacion(monto, nroCuotas, parametros.get(0).getInteres().doubleValue());
+		listaAmortizacion = managerCreditos.generarAmortizacion(monto, nroCuotas,
+				parametros.get(0).getInteres().doubleValue(), parametros.get(0).getSeguroDesgravamen().doubleValue());
 	}
 
 	public double getMonto() {
@@ -52,8 +52,6 @@ public class BeanCreditos implements Serializable {
 	public void setNroCuotas(double nroCuotas) {
 		this.nroCuotas = nroCuotas;
 	}
-
-
 
 	public List<DTOAmortizacion> getListaAmortizacion() {
 		return listaAmortizacion;
