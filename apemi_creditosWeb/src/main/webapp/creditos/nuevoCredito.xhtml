@@ -28,13 +28,13 @@
 
 
 					<h:outputText value="Seleccione el asociado: " />
-					<p:selectOneMenu value="">
+					<p:selectOneMenu value="#{beanCreditos.idAsociado}">
 						<f:selectItems value="#{beanCreditos.listaAsociados}" var="aso"
 							itemLabel="#{aso.asoPersona.cedula}" itemValue="#{aso.idSegUsuario}"></f:selectItems>
 					</p:selectOneMenu>
 
 					<h:outputText value="Seleccione el garante: " />
-					<p:selectOneMenu value="">
+					<p:selectOneMenu value="#{beanCreditos.idGarante}">
 						<f:selectItems value="#{beanCreditos.listaGarantes}" var="garante"
 							itemLabel="#{garante.asoPersona.cedula}" itemValue="#{garante.idGarante}"></f:selectItems>
 					</p:selectOneMenu>
@@ -82,7 +82,7 @@
 
 					<p:commandButton value="Guardar  " icon="pi pi-save"
 						update="@form,:form2"
-						actionListener="#{beanCreditos.actionListenerMostarTablaDeAmortizacion()}">
+						actionListener="#{beanCreditos.actionGenerarCredito()}">
 
 					</p:commandButton>
 
