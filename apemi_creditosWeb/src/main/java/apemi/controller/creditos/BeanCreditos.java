@@ -52,16 +52,16 @@ public class BeanCreditos implements Serializable {
 		listaAsociados = managerAsociados.findAllAsociados();
 		List<CredParametro> parametros = managerParametros.findAllCredParametro();
 		this.setParamCred(parametros.get(0));
-		double tasaAnual = parametros.get(0).getInteres().doubleValue();
-        tasaAnual = tasaAnual /100;	
-    	double tasaPeriodica = (Math.pow(1.0+tasaAnual,(1.0/12.0)))-1.0;
-    	double valoramortizado = monto*(tasaPeriodica/(1-Math.pow(1+tasaPeriodica,-nroCuotas)));
-    	this.setValorCuota(Math.round((valoramortizado)* 100.0)/100.0);
 		return "nuevoCredito";
 	}
 
 	public void actionListenerMostarTablaDeAmortizacion() {
 		List<CredParametro> parametros = managerParametros.findAllCredParametro();
+		double tasaAnual = parametros.get(0).getInteres().doubleValue();
+        tasaAnual = tasaAnual /100;	
+    	double tasaPeriodica = (Math.pow(1.0+tasaAnual,(1.0/12.0)))-1.0;
+    	double valoramortizado = monto*(tasaPeriodica/(1-Math.pow(1+tasaPeriodica,-nroCuotas)));
+    	this.setValorCuota(Math.round((valoramortizado)* 100.0)/100.0);
 		listaAmortizacion = managerCreditos.generarAmortizacion(monto, nroCuotas, parametros.get(0).getInteres().doubleValue());
 	}
 
