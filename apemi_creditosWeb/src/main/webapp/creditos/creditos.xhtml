@@ -27,31 +27,31 @@
 
 	<p:panel>
 		<h:form id="form2">
-			<p:dataTable value="#{beanCreditos.listaPrueba}" >
+			<p:dataTable value="#{beanCreditos.listadoCabeceras}" var="cab">
 				<p:column headerText="Id">
-					<h:outputText value="1">
+					<h:outputText value="#{cab.idCreditoCab}">
 
 					</h:outputText>
 
 				</p:column>
 				<p:column headerText="Asociado">
-					<h:outputText value="Carlos López">
+					<h:outputText value="#{cab.segUsuario1.asoPersona.apellidos} #{cab.segUsuario1.asoPersona.nombres}">
 					</h:outputText>
 				</p:column>
 				<p:column headerText="Monto ($)">
-					<h:outputText value="1000">
+					<h:outputText value="#{cab.montoTotal}">
 						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
 					</h:outputText>
 
 				</p:column>
 				<p:column headerText="Plazo">
-					<h:outputText value="12 meses">
+					<h:outputText value="#{cab.plazo}">
 
 					</h:outputText>
 				</p:column>
 
 				<p:column headerText="Fecha">
-					<h:outputText value="18/8/2021">
+					<h:outputText value="#{cab.fechaCreacion}">
 
 					</h:outputText>
 				</p:column>
