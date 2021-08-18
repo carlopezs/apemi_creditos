@@ -13,8 +13,10 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
+import alquiler.model.entities.AlquilerDet;
 import apemi.model.asociados.managers.ManagerAsociados;
 import apemi.model.core.entities.CredCabecera;
+import apemi.model.core.entities.CredDetalle;
 import apemi.model.core.entities.CredGarante;
 import apemi.model.core.entities.CredParametro;
 import apemi.model.core.entities.SegUsuario;
@@ -39,7 +41,7 @@ public class ManagerCreditos {
     
 
     public void GenerarCredito(int idAsociado , int idGarante ,CredParametro parametroCredito,
-    		double monto , int plazo) throws Exception{
+    		double monto , int plazo , List<DTOAmortizacion> detalleCredito) throws Exception{
     	
     	// Creacion de la Cabecera
     	double tasaAnual = parametroCredito.getInteres().doubleValue();
@@ -61,8 +63,21 @@ public class ManagerCreditos {
     	cabeceraCredito.setValorCuota(new BigDecimal(valorCuota));
     	cabeceraCredito.setPlazo(plazo);
     	cabeceraCredito.setPagado(false);
-    	
-    	
+    	List<CredDetalle> listaDetalle=new ArrayList<CredDetalle>();
+    	cabeceraCredito.setCredDetalles(listaDetalle);
+    	// crear detalle de creditos
+    	for ( DTOAmortizacion detalle : detalleCredito) {
+			CredDetalle nuevodetalle = new CredDetalle();
+			nuevodetalle.setCredCabecera(cabeceraCredito);
+			nuevodetalle.setInteresCuota(new BigDecimal(detalle.getInteres()));
+			nuevodetalle.setFechaCuota((Timestamp) detalle.getFechaCuota());
+			nuevodetalle.setDegravamenCuota(new BigDecimal(detalle.getSeguroDesgravamen()));
+			nuevodetalle.setSaldoCuota(new BigDecimal(detalle.getSaldo()));
+			nuevodetalle.setCapitalCuota(new BigDecimal(detalle.getValorCuota()));
+			nuevodetalle.setPagado(false);
+			listaDetalle.add(nuevodetalle);
+		}
+    	mDAO.insertar(cabeceraCredito);
     }
     
     public List<DTOAmortizacion> generarAmortizacion(double monto ,double nroCuotas,double tasaAnual,double porcentajeSegDesgra){
