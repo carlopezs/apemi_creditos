@@ -7,9 +7,13 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
+import apemi.model.asociados.managers.ManagerAsociados;
+import apemi.model.core.managers.ManagerDAO;
+import apemi.model.garante.managers.ManagerGarante;
 import appemi.model.creditos.dtos.DTOAmortizacion;
 
 /**
@@ -19,10 +23,19 @@ import appemi.model.creditos.dtos.DTOAmortizacion;
 @LocalBean
 public class ManagerCreditos {
 
-
+	@EJB
+	private ManagerDAO mDAO;
+	@EJB
+	private ManagerAsociados managerAsociados;
+	@EJB
+	private ManagerGarante managerGarantes;
+	
     public ManagerCreditos() {
       
     }
+    
+    
+   
     
     public List<DTOAmortizacion> generarAmortizacion(double monto ,double nroCuotas,double tasaAnual){
     	double interes;

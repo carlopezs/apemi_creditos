@@ -20,33 +20,33 @@
 			</f:facet>
 		</p:menubar>
 	</h:form>
-	
+
 	<p:accordionPanel>
 		<p:tab title="Ingresar cabecera">
 			<h:form>
-				<p:panelGrid columns="1">
-					<h:panelGroup>
-						<h:outputText value="Monto del prestamo:" />
-						<p:inputText value="#{beanCreditos.monto}" required="true"
-							requiredMessage="Ingrese un monto"></p:inputText>
-					</h:panelGroup>
+				<p:panelGrid columns="2">
 
-					<h:panelGroup>
-						<h:outputText value="Nro de cuotas en meses:" />
-						<p:inputText value="#{beanCreditos.nroCuotas}" required="true"
-							requiredMessage="Ingrese un nro de cuotas"></p:inputText>
-					</h:panelGroup>
 
-					
+					<h:outputText value="Seleccione el asociado: " />
+					<p:selectOneMenu value="">
+						<f:selectItems></f:selectItems>
+					</p:selectOneMenu>
 
-					<h:panelGroup>
-						<p:commandButton value="Generar tabla"
-							update="@form,:form2"
-							actionListener="#{beanCreditos.actionListenerMostarTablaDeAmortizacion()}">
+					<h:outputText value="Seleccione el garante: " />
+					<p:selectOneMenu value="">
+						<f:selectItems></f:selectItems>
+					</p:selectOneMenu>
 
-						</p:commandButton>
+					<h:outputText value="Seguro de Desgravamen:" />
+					<p:inputText value="" required="true"></p:inputText>
 
-					</h:panelGroup>
+
+					<h:outputText value="Interes:" />
+					<p:inputText value="" required="true"></p:inputText>
+
+
+					<h:outputText value="Valor de la cuota:" />
+					<p:inputText value="" required="true"></p:inputText>
 
 				</p:panelGrid>
 
@@ -57,24 +57,23 @@
 	<p:accordionPanel>
 		<p:tab title="Generar tabla de amortizacion">
 			<h:form>
-				<p:panelGrid columns="1">
-					<h:panelGroup>
+				<p:panelGrid columns="2">
+					
 						<h:outputText value="Monto del prestamo:" />
 						<p:inputText value="#{beanCreditos.monto}" required="true"
 							requiredMessage="Ingrese un monto"></p:inputText>
-					</h:panelGroup>
+					
 
-					<h:panelGroup>
+					
 						<h:outputText value="Nro de cuotas en meses:" />
 						<p:inputText value="#{beanCreditos.nroCuotas}" required="true"
 							requiredMessage="Ingrese un nro de cuotas"></p:inputText>
-					</h:panelGroup>
+					
 
-			
 
-					<h:panelGroup>
-						<p:commandButton value="Generar tabla"
-							update="@form,:form2"
+
+					
+						<p:commandButton value="Generar tabla" update="@form,:form2"
 							actionListener="#{beanCreditos.actionListenerMostarTablaDeAmortizacion()}">
 
 						</p:commandButton>
@@ -84,7 +83,7 @@
 							actionListener="#{beanCreditos.actionListenerMostarTablaDeAmortizacion()}">
 
 						</p:commandButton>
-					</h:panelGroup>
+					
 
 				</p:panelGrid>
 
