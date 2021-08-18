@@ -38,6 +38,10 @@ public class ManagerCreditos {
       
     }
     
+    public List<CredCabecera> findAllCabeceras(){
+    	return mDAO.findAll(CredCabecera.class);
+    }
+    
 
     public void GenerarCredito(int idAsociado , int idGarante ,CredParametro parametroCredito,
     		double monto , int plazo , List<DTOAmortizacion> detalleCredito) throws Exception{
