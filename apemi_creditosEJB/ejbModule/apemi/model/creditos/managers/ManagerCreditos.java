@@ -25,14 +25,13 @@ public class ManagerCreditos {
 
 	@EJB
 	private ManagerDAO mDAO;
-	@EJB
-	private ManagerAsociados managerAsociados;
-	@EJB
-	private ManagerGarante managerGarantes;
+	
 	
     public ManagerCreditos() {
       
     }
+    
+    
     
     
    

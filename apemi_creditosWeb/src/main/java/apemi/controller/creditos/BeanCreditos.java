@@ -8,9 +8,13 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
+import apemi.model.asociados.managers.ManagerAsociados;
+import apemi.model.core.entities.CredGarante;
 import apemi.model.core.entities.CredParametro;
+import apemi.model.core.entities.SegUsuario;
 import apemi.model.creditos.managers.ManagerCreditos;
 import apemi.model.creditos.managers.ManagerParametros;
+import apemi.model.garante.managers.ManagerGarante;
 import appemi.model.creditos.dtos.DTOAmortizacion;
 
 @Named
@@ -20,9 +24,15 @@ public class BeanCreditos implements Serializable {
 	private ManagerCreditos managerCreditos;
 	@EJB
 	private ManagerParametros managerParametros;
+	@EJB
+	private ManagerAsociados managerAsociados;
+	@EJB
+	private ManagerGarante managerGarantes;
 
 	private double monto;
 	private double nroCuotas;
+	private List<SegUsuario> listaAsociados;
+	private List<CredGarante> listaGarantes;
 
 
 	List<DTOAmortizacion> listaAmortizacion = new ArrayList<DTOAmortizacion>();
@@ -30,6 +40,12 @@ public class BeanCreditos implements Serializable {
 
 	public BeanCreditos() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public String actionMenuCreditos() {
+        listaGarantes = managerGarantes.findAllGarantes();
+		listaAsociados = managerAsociados.findAllAsociados();
+		return "nuevoCredito";
 	}
 
 	public void actionListenerMostarTablaDeAmortizacion() {
@@ -62,5 +78,23 @@ public class BeanCreditos implements Serializable {
 	public void setListaAmortizacion(List<DTOAmortizacion> listaAmortizacion) {
 		this.listaAmortizacion = listaAmortizacion;
 	}
+
+	public List<SegUsuario> getListaAsociados() {
+		return listaAsociados;
+	}
+
+	public void setListaAsociados(List<SegUsuario> listaAsociados) {
+		this.listaAsociados = listaAsociados;
+	}
+
+	public List<CredGarante> getListaGarantes() {
+		return listaGarantes;
+	}
+
+	public void setListaGarantes(List<CredGarante> listaGarantes) {
+		this.listaGarantes = listaGarantes;
+	}
+	
+	
 
 }

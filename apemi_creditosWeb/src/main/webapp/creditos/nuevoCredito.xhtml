@@ -29,12 +29,14 @@
 
 					<h:outputText value="Seleccione el asociado: " />
 					<p:selectOneMenu value="">
-						<f:selectItems></f:selectItems>
+						<f:selectItems value="#{beanCreditos.listaAsociados}" var="aso"
+							itemLabel="#{aso.asoPersona.cedula}" itemValue="#{aso.idSegUsuario}"></f:selectItems>
 					</p:selectOneMenu>
 
 					<h:outputText value="Seleccione el garante: " />
 					<p:selectOneMenu value="">
-						<f:selectItems></f:selectItems>
+						<f:selectItems value="#{beanCreditos.listaGarantes}" var="garante"
+							itemLabel="#{garante.asoPersona.cedula}" itemValue="#{garante.idGarante}"></f:selectItems>
 					</p:selectOneMenu>
 
 					<h:outputText value="Seguro de Desgravamen:" />
@@ -58,32 +60,32 @@
 		<p:tab title="Generar tabla de amortizacion">
 			<h:form>
 				<p:panelGrid columns="2">
-					
-						<h:outputText value="Monto del prestamo:" />
-						<p:inputText value="#{beanCreditos.monto}" required="true"
-							requiredMessage="Ingrese un monto"></p:inputText>
-					
 
-					
-						<h:outputText value="Nro de cuotas en meses:" />
-						<p:inputText value="#{beanCreditos.nroCuotas}" required="true"
-							requiredMessage="Ingrese un nro de cuotas"></p:inputText>
-					
+					<h:outputText value="Monto del prestamo:" />
+					<p:inputText value="#{beanCreditos.monto}" required="true"
+						requiredMessage="Ingrese un monto"></p:inputText>
 
 
 
-					
-						<p:commandButton value="Generar tabla" update="@form,:form2"
-							actionListener="#{beanCreditos.actionListenerMostarTablaDeAmortizacion()}">
+					<h:outputText value="Nro de cuotas en meses:" />
+					<p:inputText value="#{beanCreditos.nroCuotas}" required="true"
+						requiredMessage="Ingrese un nro de cuotas"></p:inputText>
 
-						</p:commandButton>
 
-						<p:commandButton value="Guardar  " icon="pi pi-save"
-							update="@form,:form2"
-							actionListener="#{beanCreditos.actionListenerMostarTablaDeAmortizacion()}">
 
-						</p:commandButton>
-					
+
+
+					<p:commandButton value="Generar tabla" update="@form,:form2"
+						actionListener="#{beanCreditos.actionListenerMostarTablaDeAmortizacion()}">
+
+					</p:commandButton>
+
+					<p:commandButton value="Guardar  " icon="pi pi-save"
+						update="@form,:form2"
+						actionListener="#{beanCreditos.actionListenerMostarTablaDeAmortizacion()}">
+
+					</p:commandButton>
+
 
 				</p:panelGrid>
 
