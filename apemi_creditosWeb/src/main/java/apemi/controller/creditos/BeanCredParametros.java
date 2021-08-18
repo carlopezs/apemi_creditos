@@ -41,16 +41,21 @@ public class BeanCredParametros implements Serializable {
 	}
 
 	public void actionListenerInsertarCredParametro() {
-		try {
-			managerParametros.insertarCredParametro(interes, monto_minimo, plazo_max_monto_min, seguro_desgravamen);
-			listaCredParametro = managerParametros.findAllCredParametro();
-			nuevoParametro = new CredParametro();
-			nuevoParametro.setInteres(interes);
-			nuevoParametro.setMontoMinimo(monto_minimo);
-			nuevoParametro.setPlazoMaxMontoMin(plazo_max_monto_min);
-			nuevoParametro.setSeguroDesgravamen(seguro_desgravamen);
 
-			JSFUtil.crearMensajeINFO("Parámetro ingresado");
+		try {
+			if (listaCredParametro == null) {
+				managerParametros.insertarCredParametro(interes, monto_minimo, plazo_max_monto_min, seguro_desgravamen);
+				listaCredParametro = managerParametros.findAllCredParametro();
+				nuevoParametro = new CredParametro();
+				nuevoParametro.setInteres(interes);
+				nuevoParametro.setMontoMinimo(monto_minimo);
+				nuevoParametro.setPlazoMaxMontoMin(plazo_max_monto_min);
+				nuevoParametro.setSeguroDesgravamen(seguro_desgravamen);
+
+				JSFUtil.crearMensajeINFO("Parámetro ingresado");
+			}
+			JSFUtil.crearMensajeINFO("Ya existe un parámetro");
+
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR(e.getMessage());
 			e.printStackTrace();

@@ -13,9 +13,6 @@
 		<p:menubar>
 			<p:menuitem value="Regresar" icon="pi pi-home"
 				action="/menu?faces-redirect=true" />
-			<p:menuitem value="Creditos" icon="pi pi-credit-card" />
-			<p:menuitem value="Parametros de créditos" icon="pi pi-briefcase" />
-			<p:menuitem value="Garantes" icon="pi pi-users" />
 			<f:facet name="options">
 				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
 					icon="pi pi-user">
@@ -46,7 +43,7 @@
 	</h:form>
 	<h:form id="formDatos">
 		<p:dataTable value="#{beanCredParametros.listaCredParametro}" var="b"
-			emptyMessage="No hay registro aún." paginator="true" rows="3">
+			emptyMessage="No hay registro aún." paginator="true" rows="1">
 			<p:column headerText="ID" style="width:50px">
 				<h:outputText value="#{b.idParametroCredito}" />
 			</p:column>
