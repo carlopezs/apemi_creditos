@@ -13,7 +13,6 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
-import alquiler.model.entities.AlquilerDet;
 import apemi.model.asociados.managers.ManagerAsociados;
 import apemi.model.core.entities.CredCabecera;
 import apemi.model.core.entities.CredDetalle;

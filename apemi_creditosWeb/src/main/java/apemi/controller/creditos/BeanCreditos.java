@@ -9,6 +9,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
+import apemi.controller.JSFUtil;
 import apemi.model.asociados.managers.ManagerAsociados;
 import apemi.model.core.entities.CredGarante;
 import apemi.model.core.entities.CredParametro;
@@ -73,6 +74,16 @@ public class BeanCreditos implements Serializable {
     	this.setValorCuota(Math.round((valoramortizado)* 100.0)/100.0);
 
 
+	}
+	
+	public void actionGenerarCredito() {
+		try {
+			managerCreditos.GenerarCredito(idAsociado, idGarante, paramCred, monto, (int)nroCuotas, listaAmortizacion);
+			JSFUtil.crearMensajeINFO("Credito generado correctamente");
+		} catch (Exception e) {
+		   JSFUtil.crearMensajeERROR(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
 	public double getMonto() {
