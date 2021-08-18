@@ -1,6 +1,8 @@
 package apemi.model.creditos.managers;
 
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -12,6 +14,10 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 import apemi.model.asociados.managers.ManagerAsociados;
+import apemi.model.core.entities.CredCabecera;
+import apemi.model.core.entities.CredGarante;
+import apemi.model.core.entities.CredParametro;
+import apemi.model.core.entities.SegUsuario;
 import apemi.model.core.managers.ManagerDAO;
 import apemi.model.garante.managers.ManagerGarante;
 import appemi.model.creditos.dtos.DTOAmortizacion;
@@ -32,9 +38,29 @@ public class ManagerCreditos {
     }
     
     
-    
-    
-   
+    public void GenerarCredito(int idAsociado , int idGarante ,CredParametro parametroCredito,
+    		double monto , int plazo) throws Exception{
+    	
+    	double tasaAnual = parametroCredito.getInteres().doubleValue();
+        tasaAnual = tasaAnual /100;	
+    	double tasaPeriodica = (Math.pow(1.0+tasaAnual,(1.0/12.0)))-1.0;
+    	double valorCuota = monto*(tasaPeriodica/(1-Math.pow(1+tasaPeriodica,-plazo)));
+    	
+    	SegUsuario asociado = (SegUsuario) mDAO.findById(SegUsuario.class, idAsociado);
+    	SegUsuario administrador = (SegUsuario) mDAO.findById(SegUsuario.class, 1);
+    	CredGarante garante = (CredGarante) mDAO.findById(CredGarante.class, idGarante);
+    	CredCabecera cabeceraCredito = new CredCabecera();
+    	cabeceraCredito.setSegUsuario1(administrador); //admin
+    	cabeceraCredito.setSegUsuario2(asociado); // asociado
+    	cabeceraCredito.setCredGarante(garante); // garante
+    	cabeceraCredito.setFechaCreacion((Timestamp) new Date());
+    	cabeceraCredito.setInteres(parametroCredito.getInteres());
+    	cabeceraCredito.setDegravamenTotal(parametroCredito.getSeguroDesgravamen());
+    	cabeceraCredito.setMontoTotal(new BigDecimal(monto));
+    	cabeceraCredito.setValorCuota(new BigDecimal(valorCuota));
+    	cabeceraCredito.setPlazo(plazo);
+    	cabeceraCredito.setPagado(false);
+    }
     
     public List<DTOAmortizacion> generarAmortizacion(double monto ,double nroCuotas,double tasaAnual){
     	double interes;

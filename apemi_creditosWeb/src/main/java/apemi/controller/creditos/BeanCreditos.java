@@ -2,6 +2,7 @@ package apemi.controller.creditos;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -31,6 +32,9 @@ public class BeanCreditos implements Serializable {
 
 	private double monto;
 	private double nroCuotas;
+	private int idAsociado;
+	private int idGarante;
+	private Date fechaCreacion;
 	private List<SegUsuario> listaAsociados;
 	private List<CredGarante> listaGarantes;
 
@@ -45,6 +49,7 @@ public class BeanCreditos implements Serializable {
 	public String actionMenuCreditos() {
         listaGarantes = managerGarantes.findAllGarantes();
 		listaAsociados = managerAsociados.findAllAsociados();
+		fechaCreacion = new Date();
 		return "nuevoCredito";
 	}
 
@@ -94,6 +99,31 @@ public class BeanCreditos implements Serializable {
 	public void setListaGarantes(List<CredGarante> listaGarantes) {
 		this.listaGarantes = listaGarantes;
 	}
+
+	public int getIdAsociado() {
+		return idAsociado;
+	}
+
+	public void setIdAsociado(int idAsociado) {
+		this.idAsociado = idAsociado;
+	}
+
+	public int getIdGarante() {
+		return idGarante;
+	}
+
+	public void setIdGarante(int idGarante) {
+		this.idGarante = idGarante;
+	}
+
+	public Date getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(Date fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+	
 	
 	
 
