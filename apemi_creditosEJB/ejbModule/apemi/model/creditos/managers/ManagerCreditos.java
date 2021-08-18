@@ -41,6 +41,7 @@ public class ManagerCreditos {
     public void GenerarCredito(int idAsociado , int idGarante ,CredParametro parametroCredito,
     		double monto , int plazo) throws Exception{
     	
+    	// Creacion de la Cabecera
     	double tasaAnual = parametroCredito.getInteres().doubleValue();
         tasaAnual = tasaAnual /100;	
     	double tasaPeriodica = (Math.pow(1.0+tasaAnual,(1.0/12.0)))-1.0;
@@ -60,6 +61,8 @@ public class ManagerCreditos {
     	cabeceraCredito.setValorCuota(new BigDecimal(valorCuota));
     	cabeceraCredito.setPlazo(plazo);
     	cabeceraCredito.setPagado(false);
+    	
+    	
     }
     
     public List<DTOAmortizacion> generarAmortizacion(double monto ,double nroCuotas,double tasaAnual){

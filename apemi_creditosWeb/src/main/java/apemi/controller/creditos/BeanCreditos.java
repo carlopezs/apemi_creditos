@@ -34,9 +34,10 @@ public class BeanCreditos implements Serializable {
 	private double nroCuotas;
 	private int idAsociado;
 	private int idGarante;
-	private Date fechaCreacion;
+	private double valorCuota;
 	private List<SegUsuario> listaAsociados;
 	private List<CredGarante> listaGarantes;
+	private CredParametro paramCred;
 
 
 	List<DTOAmortizacion> listaAmortizacion = new ArrayList<DTOAmortizacion>();
@@ -49,7 +50,13 @@ public class BeanCreditos implements Serializable {
 	public String actionMenuCreditos() {
         listaGarantes = managerGarantes.findAllGarantes();
 		listaAsociados = managerAsociados.findAllAsociados();
-		fechaCreacion = new Date();
+		List<CredParametro> parametros = managerParametros.findAllCredParametro();
+		this.setParamCred(parametros.get(0));
+		double tasaAnual = parametros.get(0).getInteres().doubleValue();
+        tasaAnual = tasaAnual /100;	
+    	double tasaPeriodica = (Math.pow(1.0+tasaAnual,(1.0/12.0)))-1.0;
+    	double valoramortizado = monto*(tasaPeriodica/(1-Math.pow(1+tasaPeriodica,-nroCuotas)));
+    	this.setValorCuota(Math.round((valoramortizado)* 100.0)/100.0);
 		return "nuevoCredito";
 	}
 
@@ -116,13 +123,23 @@ public class BeanCreditos implements Serializable {
 		this.idGarante = idGarante;
 	}
 
-	public Date getFechaCreacion() {
-		return fechaCreacion;
+	public CredParametro getParamCred() {
+		return paramCred;
 	}
 
-	public void setFechaCreacion(Date fechaCreacion) {
-		this.fechaCreacion = fechaCreacion;
+	public void setParamCred(CredParametro paramCred) {
+		this.paramCred = paramCred;
 	}
+
+	public double getValorCuota() {
+		return valorCuota;
+	}
+
+	public void setValorCuota(double valorCuota) {
+		this.valorCuota = valorCuota;
+	}
+
+	
 	
 	
 	
