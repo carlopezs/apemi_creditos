@@ -53,9 +53,9 @@ public class BeanCredParametros implements Serializable {
 				nuevoParametro.setSeguroDesgravamen(seguro_desgravamen);
 
 				JSFUtil.crearMensajeINFO("Parámetro ingresado");
+			} else {
+				JSFUtil.crearMensajeWARN("Ya existe un parámetro");
 			}
-			JSFUtil.crearMensajeINFO("Ya existe un parámetro");
-
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR(e.getMessage());
 			e.printStackTrace();
@@ -86,19 +86,6 @@ public class BeanCredParametros implements Serializable {
 			e.printStackTrace();
 		}
 	}
-
-	// public void actionListenerActualizarCredParametros() {
-	// try {
-	// managerParametros.actualizarCredParametro(id_parametro_credito, interes,
-	// monto_minimo, plazo_max_monto_min,
-	// seguro_desgravamen);
-	// listaCredParametro = managerParametros.findAllCredParametro();
-	// JSFUtil.crearMensajeINFO("Datos actualizados");
-//		} catch (Exception e) {
-	// JSFUtil.crearMensajeERROR(e.getMessage());
-	// e.printStackTrace();
-	// }
-//	}
 
 	public List<CredParametro> getListaCredParametro() {
 		return listaCredParametro;
