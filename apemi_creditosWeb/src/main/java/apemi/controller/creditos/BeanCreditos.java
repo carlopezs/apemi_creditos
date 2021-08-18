@@ -132,22 +132,6 @@ public class BeanCreditos implements Serializable {
 		this.listaGarantes = listaGarantes;
 	}
 
-	public int getIdAsociado() {
-		return idAsociado;
-	}
-
-	public void setIdAsociado(int idAsociado) {
-		this.idAsociado = idAsociado;
-	}
-
-	public int getIdGarante() {
-		return idGarante;
-	}
-
-	public void setIdGarante(int idGarante) {
-		this.idGarante = idGarante;
-	}
-
 	public CredParametro getParamCred() {
 		return paramCred;
 	}
@@ -171,5 +155,25 @@ public class BeanCreditos implements Serializable {
 	public void setListaPrueba(List<String> listaPrueba) {
 		this.listaPrueba = listaPrueba;
 	}
+
+	public int getIdAsociado() {
+		return idAsociado;
+	}
+
+	public void setIdAsociado(int idAsociado) {
+		System.out.println("ASOCIADO: "+ idAsociado);
+		this.idAsociado = idAsociado;
+	}
+
+	public int getIdGarante() {
+		return idGarante;
+	}
+
+	public void setIdGarante(int idGarante) {
+	   System.out.println("GARANTE: "+ idGarante);
+		this.idGarante = idGarante;
+	}
+	
+	
 
 }

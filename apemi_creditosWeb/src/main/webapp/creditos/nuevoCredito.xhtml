@@ -7,7 +7,7 @@
 
 <h:head></h:head>
 <body>
-<p:growl>
+	<p:growl>
 		<p:autoUpdate />
 	</p:growl>
 	<h:form>
@@ -32,25 +32,28 @@
 
 					<h:outputText value="Seleccione el asociado: " />
 					<p:selectOneMenu value="#{beanCreditos.idAsociado}">
-					    <f:selectItem itemLabel="Seleccione una opcion:"/>
+						<p:ajax event="change" process="@this" />
 						<f:selectItems value="#{beanCreditos.listaAsociados}" var="user"
-							itemLabel="#{user.asoPersona.cedula}" itemValue="#{user.idSegUsuario}"></f:selectItems>
+							itemLabel="#{user.asoPersona.cedula}"
+							itemValue="#{user.idSegUsuario}"></f:selectItems>
 					</p:selectOneMenu>
-					
+
 
 					<h:outputText value="Seleccione el garante: " />
 					<p:selectOneMenu value="#{beanCreditos.idGarante}">
-					    <f:selectItem itemLabel="Seleccione una opcion:"/>
 						<f:selectItems value="#{beanCreditos.listaGarantes}" var="gar"
 							itemLabel="#{gar.asoPersona.cedula}" itemValue="#{gar.idGarante}"></f:selectItems>
+							<p:ajax event="change" process="@this" />
 					</p:selectOneMenu>
 
 					<h:outputText value="Seguro de Desgravamen:" />
-					<p:inputText value="#{beanCreditos.paramCred.seguroDesgravamen}" required="true" disabled="true"></p:inputText>
+					<p:inputText value="#{beanCreditos.paramCred.seguroDesgravamen}"
+						required="true" disabled="true"></p:inputText>
 
 
 					<h:outputText value="Interes:" />
-					<p:inputText value="#{beanCreditos.paramCred.interes}" required="true" disabled="true"></p:inputText>
+					<p:inputText value="#{beanCreditos.paramCred.interes}"
+						required="true" disabled="true"></p:inputText>
 
 
 				</p:panelGrid>
@@ -73,9 +76,10 @@
 					<h:outputText value="Nro de cuotas en meses:" />
 					<p:inputText value="#{beanCreditos.nroCuotas}" required="true"
 						requiredMessage="Ingrese un nro de cuotas"></p:inputText>
-						
+
 					<h:outputText value="Valor de la cuota:" />
-					<p:inputText value="#{beanCreditos.valorCuota}" required="true" disabled="true"></p:inputText>
+					<p:inputText value="#{beanCreditos.valorCuota}" required="true"
+						disabled="true"></p:inputText>
 
 
 
@@ -86,7 +90,7 @@
 
 					</p:commandButton>
 
-					<p:commandButton value="Guardar  " icon="pi pi-save"
+					<p:commandButton value="Guardar" icon="pi pi-save"
 						update="@form,:form2"
 						actionListener="#{beanCreditos.actionGenerarCredito()}">
 
@@ -126,7 +130,7 @@
 						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
 					</h:outputText>
 				</p:column>
-				
+
 				<p:column headerText="Seguro de desgravamen ($)">
 					<h:outputText value="#{amortizacion.seguroDesgravamen}">
 						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
@@ -146,8 +150,8 @@
 				</p:column>
 
 			</p:dataTable>
-			
-			
+
+
 		</h:form>
 	</p:panel>
 
