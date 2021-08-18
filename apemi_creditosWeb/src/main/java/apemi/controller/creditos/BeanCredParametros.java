@@ -51,7 +51,6 @@ public class BeanCredParametros implements Serializable {
 				nuevoParametro.setMontoMinimo(monto_minimo);
 				nuevoParametro.setPlazoMaxMontoMin(plazo_max_monto_min);
 				nuevoParametro.setSeguroDesgravamen(seguro_desgravamen);
-
 				JSFUtil.crearMensajeINFO("Parámetro ingresado");
 			} else {
 				JSFUtil.crearMensajeWARN("Ya existe un parámetro");
