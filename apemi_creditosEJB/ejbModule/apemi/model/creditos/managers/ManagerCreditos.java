@@ -43,6 +43,12 @@ public class ManagerCreditos {
     }
     
 
+    public Timestamp getTimestamp(java.util.Date date){
+    	  return date == null ? null : new java.sql.Timestamp(date.getTime());
+    	}
+
+
+
     public void GenerarCredito(int idAsociado , int idGarante ,CredParametro parametroCredito,
     		double monto , int plazo , List<DTOAmortizacion> detalleCredito) throws Exception{
     	
@@ -55,11 +61,16 @@ public class ManagerCreditos {
     	SegUsuario asociado = (SegUsuario) mDAO.findById(SegUsuario.class, idAsociado);
     	SegUsuario administrador = (SegUsuario) mDAO.findById(SegUsuario.class, 1);
     	CredGarante garante = (CredGarante) mDAO.findById(CredGarante.class, idGarante);
+    	System.out.println("parametro asociado"+idAsociado);
+    	System.out.println("parametro garante"+ idGarante);
+    	System.out.println("asociado"+ asociado.getIdSegUsuario());
+    	System.out.println("garante"+ garante.getIdGarante());
+    
     	CredCabecera cabeceraCredito = new CredCabecera();
-    	cabeceraCredito.setSegUsuario1(administrador); //admin
-    	cabeceraCredito.setSegUsuario2(asociado); // asociado
+    	cabeceraCredito.setSegUsuario1(asociado); //asociado
+    	cabeceraCredito.setSegUsuario2(administrador); // admin
     	cabeceraCredito.setCredGarante(garante); // garante
-    	cabeceraCredito.setFechaCreacion((Timestamp) new Date());
+    	cabeceraCredito.setFechaCreacion(getTimestamp(new Date()));
     	cabeceraCredito.setInteres(parametroCredito.getInteres());
     	cabeceraCredito.setDegravamenTotal(parametroCredito.getSeguroDesgravamen());
     	cabeceraCredito.setMontoTotal(new BigDecimal(monto));
@@ -68,19 +79,24 @@ public class ManagerCreditos {
     	cabeceraCredito.setPagado(false);
     	List<CredDetalle> listaDetalle=new ArrayList<CredDetalle>();
     	cabeceraCredito.setCredDetalles(listaDetalle);
+     	mDAO.insertar(cabeceraCredito);
     	// crear detalle de creditos
     	for ( DTOAmortizacion detalle : detalleCredito) {
 			CredDetalle nuevodetalle = new CredDetalle();
 			nuevodetalle.setCredCabecera(cabeceraCredito);
 			nuevodetalle.setInteresCuota(new BigDecimal(detalle.getInteres()));
-			nuevodetalle.setFechaCuota((Timestamp) detalle.getFechaCuota());
+			nuevodetalle.setFechaCuota(getTimestamp(detalle.getFechaCuota()));
 			nuevodetalle.setDegravamenCuota(new BigDecimal(detalle.getSeguroDesgravamen()));
 			nuevodetalle.setSaldoCuota(new BigDecimal(detalle.getSaldo()));
 			nuevodetalle.setCapitalCuota(new BigDecimal(detalle.getValorCuota()));
 			nuevodetalle.setPagado(false);
-			listaDetalle.add(nuevodetalle);
+			mDAO.insertar(nuevodetalle);
+			//listaDetalle.add(nuevodetalle);
+			
 		}
-    	mDAO.insertar(cabeceraCredito);
+    	//cabeceraCredito.setCredDetalles(listaDetalle);
+    	System.out.println(listaDetalle.size());
+   
     }
     
     public List<DTOAmortizacion> generarAmortizacion(double monto ,double nroCuotas,double tasaAnual,double porcentajeSegDesgra){
