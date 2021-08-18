@@ -11,6 +11,7 @@ import javax.inject.Named;
 
 import apemi.controller.JSFUtil;
 import apemi.model.asociados.managers.ManagerAsociados;
+import apemi.model.core.entities.CredCabecera;
 import apemi.model.core.entities.CredGarante;
 import apemi.model.core.entities.CredParametro;
 import apemi.model.core.entities.SegUsuario;
@@ -38,6 +39,7 @@ public class BeanCreditos implements Serializable {
 	private double valorCuota;
 	private List<SegUsuario> listaAsociados;
 	private List<CredGarante> listaGarantes;
+	private List<CredCabecera> listadoCabeceras;
 	private List<String> listaPrueba;
 	private CredParametro paramCred;
 
@@ -49,8 +51,7 @@ public class BeanCreditos implements Serializable {
 	}
 
 	public String actionMenuCreditosCab() {
-		listaPrueba = new ArrayList<String>();
-		listaPrueba.add("1");
+		listadoCabeceras = managerCreditos.findAllCabeceras();
 		return "creditos";
 	}
 
@@ -172,6 +173,14 @@ public class BeanCreditos implements Serializable {
 	public void setIdGarante(int idGarante) {
 	   System.out.println("GARANTE: "+ idGarante);
 		this.idGarante = idGarante;
+	}
+
+	public List<CredCabecera> getListadoCabeceras() {
+		return listadoCabeceras;
+	}
+
+	public void setListadoCabeceras(List<CredCabecera> listadoCabeceras) {
+		this.listadoCabeceras = listadoCabeceras;
 	}
 	
 	

@@ -39,6 +39,11 @@ public class ManagerCreditos {
 	public List<CredCabecera> findAllCabeceras() {
 		return mDAO.findAll(CredCabecera.class);
 	}
+	
+	public List<CredDetalle> findAllDetalles() {
+		return mDAO.findAll(CredDetalle.class);
+	}
+
 
 	public Timestamp getTimestamp(java.util.Date date) {
 		return date == null ? null : new java.sql.Timestamp(date.getTime());
