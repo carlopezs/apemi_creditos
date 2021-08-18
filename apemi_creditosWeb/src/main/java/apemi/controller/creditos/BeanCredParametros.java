@@ -27,6 +27,7 @@ public class BeanCredParametros implements Serializable {
 	private BigDecimal monto_minimo;
 	private long plazo_max_monto_min;
 	private BigDecimal seguro_desgravamen;
+	private CredParametro edicionParametro;
 
 	private List<CredParametro> listaCredParametro;
 	private CredParametro nuevoParametro;
@@ -41,35 +42,47 @@ public class BeanCredParametros implements Serializable {
 
 	public void actionListenerInsertarCredParametro() {
 		try {
-			managerParametros.insertarCredParametro(interes, monto_minimo, plazo_max_monto_min, seguro_desgravamen);
-			listaCredParametro = managerParametros.findAllCredParametro();
-			nuevoParametro = new CredParametro();
-			nuevoParametro.setInteres(interes);
-			nuevoParametro.setMontoMinimo(monto_minimo);
-			nuevoParametro.setPlazoMaxMontoMin(plazo_max_monto_min);
-			nuevoParametro.setSeguroDesgravamen(seguro_desgravamen);
-
-			JSFUtil.crearMensajeINFO("Parámetro ingresado");
+			if (listaCredParametro.isEmpty()) {
+				managerParametros.insertarCredParametro(interes, monto_minimo, plazo_max_monto_min, seguro_desgravamen);
+				listaCredParametro = managerParametros.findAllCredParametro();
+				nuevoParametro = new CredParametro();
+				nuevoParametro.setInteres(interes);
+				nuevoParametro.setMontoMinimo(monto_minimo);
+				nuevoParametro.setPlazoMaxMontoMin(plazo_max_monto_min);
+				nuevoParametro.setSeguroDesgravamen(seguro_desgravamen);
+				JSFUtil.crearMensajeINFO("Parámetro ingresado");
+			} else {
+				JSFUtil.crearMensajeWARN("Ya existe un parámetro");
+			}
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR(e.getMessage());
 			e.printStackTrace();
 		}
 	}
 
-	public void actionListenerActualizarCredParametros() {
+	public void actionListenerEliminarParametro(int idParamCred) {
 		try {
-			managerParametros.actualizarCredParametro(id_parametro_credito, interes, monto_minimo, plazo_max_monto_min,
-					seguro_desgravamen);
+			managerParametros.eliminarCredParametro(idParamCred);
 			listaCredParametro = managerParametros.findAllCredParametro();
-			JSFUtil.crearMensajeINFO("Datos actualizados");
+			JSFUtil.crearMensajeINFO("Parámetro eliminado");
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR(e.getMessage());
 			e.printStackTrace();
 		}
 	}
 
-	public void actionListenerMostarCredParametros() {
-		listaCredParametro = managerParametros.findAllCredParametro();
+	public void actionListenerCargarParametro(CredParametro parametro) {
+		edicionParametro = parametro;
+	}
+
+	public void actionListenerGuardarEdicionParametro() {
+		try {
+			managerParametros.actualizarCredParametro(edicionParametro);
+			JSFUtil.crearMensajeINFO("Parámetro editado");
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
 	public List<CredParametro> getListaCredParametro() {
@@ -78,6 +91,11 @@ public class BeanCredParametros implements Serializable {
 
 	public void setListaCredParametro(List<CredParametro> listaCredParametro) {
 		this.listaCredParametro = listaCredParametro;
+	}
+
+	public String actionListenerMostarCredParametros() {
+		listaCredParametro = managerParametros.findAllCredParametro();
+		return "parametros?faces-redirect=true";
 	}
 
 	public int getId_parametro_credito() {
@@ -118,5 +136,29 @@ public class BeanCredParametros implements Serializable {
 
 	public void setSeguro_desgravamen(BigDecimal seguro_desgravamen) {
 		this.seguro_desgravamen = seguro_desgravamen;
+	}
+
+	public ManagerParametros getManagerParametros() {
+		return managerParametros;
+	}
+
+	public void setManagerParametros(ManagerParametros managerParametros) {
+		this.managerParametros = managerParametros;
+	}
+
+	public CredParametro getEdicionParametro() {
+		return edicionParametro;
+	}
+
+	public void setEdicionParametro(CredParametro edicionParametro) {
+		this.edicionParametro = edicionParametro;
+	}
+
+	public CredParametro getNuevoParametro() {
+		return nuevoParametro;
+	}
+
+	public void setNuevoParametro(CredParametro nuevoParametro) {
+		this.nuevoParametro = nuevoParametro;
 	}
 }
