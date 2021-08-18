@@ -38,7 +38,7 @@ public class BeanCreditos implements Serializable {
 	private double valorCuota;
 	private List<SegUsuario> listaAsociados;
 	private List<CredGarante> listaGarantes;
-	private List<String> listaPrueba; 
+	private List<String> listaPrueba;
 	private CredParametro paramCred;
 
 	List<DTOAmortizacion> listaAmortizacion = new ArrayList<DTOAmortizacion>();
@@ -47,15 +47,15 @@ public class BeanCreditos implements Serializable {
 	public BeanCreditos() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public String actionMenuCreditosCab() {
 		listaPrueba = new ArrayList<String>();
 		listaPrueba.add("1");
 		return "creditos";
 	}
-	
+
 	public String actionMenuCreditos() {
-        listaGarantes = managerGarantes.findAllGarantes();
+		listaGarantes = managerGarantes.findAllGarantes();
 		listaAsociados = managerAsociados.findAllAsociados();
 		List<CredParametro> parametros = managerParametros.findAllCredParametro();
 		this.setParamCred(parametros.get(0));
@@ -68,20 +68,26 @@ public class BeanCreditos implements Serializable {
 		listaAmortizacion = managerCreditos.generarAmortizacion(monto, nroCuotas,
 				parametros.get(0).getInteres().doubleValue(), parametros.get(0).getSeguroDesgravamen().doubleValue());
 		double tasaAnual = parametros.get(0).getInteres().doubleValue();
-        tasaAnual = tasaAnual /100;	
-    	double tasaPeriodica = (Math.pow(1.0+tasaAnual,(1.0/12.0)))-1.0;
-    	double valoramortizado = monto*(tasaPeriodica/(1-Math.pow(1+tasaPeriodica,-nroCuotas)));
-    	this.setValorCuota(Math.round((valoramortizado)* 100.0)/100.0);
-
+		tasaAnual = tasaAnual / 100;
+		double tasaPeriodica = (Math.pow(1.0 + tasaAnual, (1.0 / 12.0))) - 1.0;
+		double valoramortizado = monto * (tasaPeriodica / (1 - Math.pow(1 + tasaPeriodica, -nroCuotas)));
+		this.setValorCuota(Math.round((valoramortizado) * 100.0) / 100.0);
 
 	}
-	
+
 	public void actionGenerarCredito() {
 		try {
-			managerCreditos.GenerarCredito(idAsociado, idGarante, paramCred, monto, (int)nroCuotas, listaAmortizacion);
-			JSFUtil.crearMensajeINFO("Credito generado correctamente");
+			if (this.getIdAsociado() == 0 || this.getIdGarante() == 0) {
+				JSFUtil.crearMensajeINFO("id == 0");
+
+			} else {
+				managerCreditos.GenerarCredito(idAsociado, idGarante, paramCred, monto, (int) nroCuotas,
+						listaAmortizacion);
+				JSFUtil.crearMensajeINFO("Credito generado correctamente");
+			}
+
 		} catch (Exception e) {
-		   JSFUtil.crearMensajeERROR(e.getMessage());
+			JSFUtil.crearMensajeERROR(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -165,11 +171,5 @@ public class BeanCreditos implements Serializable {
 	public void setListaPrueba(List<String> listaPrueba) {
 		this.listaPrueba = listaPrueba;
 	}
-
-	
-	
-	
-	
-	
 
 }
