@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Crédito Parámetros</title>
+</h:head>
+<body>
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Regresar" icon="pi pi-home"
+				action="/menu?faces-redirect=true" />
+			<f:facet name="options">
+				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
+					icon="pi pi-user">
+					<p:menuitem value="Perfil" icon="pi pi-cog"></p:menuitem>
+					<p:menuitem value="Cerrar sesión" icon="pi pi-sign-out"
+						action="#{beanSegLogin.actionCerrarSesion()}"></p:menuitem>
+				</p:menuButton>
+			</f:facet>
+		</p:menubar>
+		<p:staticMessage severity="info" summary="Módulo de creditos"></p:staticMessage>
+	</h:form>
+	<h:form>
+		<p:panel>
+			<p:panelGrid columns="2">
+				<h:outputText value="Interés:" />
+				<p:inputText value="#{beanCredParametros.interes}" />
+				<h:outputText value="Monto mínimo:" />
+				<p:inputText value="#{beanCredParametros.monto_minimo}" />
+				<h:outputText value="Plazo máximo:" />
+				<p:inputText value="#{beanCredParametros.plazo_max_monto_min}" />
+				<h:outputText value="Seguro desgravamen:" />
+				<p:inputText value="#{beanCredParametros.seguro_desgravamen}" />
+				<p:commandButton value="Guardar" icon="pi pi-save"
+					update="@form:,formDatos"
+					action="#{beanCredParametros.actionListenerInsertarCredParametro()}"></p:commandButton>
+			</p:panelGrid>
+		</p:panel>
+	</h:form>
+	<h:form id="formDatos">
+		<p:dataTable value="#{beanCredParametros.listaCredParametro}" var="b"
+			emptyMessage="No hay registro aún." paginator="true" rows="1">
+			<p:column headerText="ID" style="width:50px">
+				<h:outputText value="#{b.idParametroCredito}" />
+			</p:column>
+			<p:column headerText="Interés">
+				<h:outputText value="#{b.interes}" />
+			</p:column>
+			<p:column headerText="Monto mínimo">
+				<h:outputText value="#{b.montoMinimo}" />
+			</p:column>
+			<p:column headerText="Plazo máximo">
+				<h:outputText value="#{b.plazoMaxMontoMin}" />
+			</p:column>
+			<p:column headerText="Seguro desgravamen">
+				<h:outputText value="#{b.seguroDesgravamen}" />
+			</p:column>
+			<p:column headerText="Opciones">
+				<p:commandButton icon="pi pi-pencil" title="editar"
+					actionListener="#{beanCredParametros.actionListenerCargarParametro(b)}"
+					oncomplete="PF('dialogoEdicion').show()" update=":formEdicion" />
+				<p:commandButton icon="pi pi-times-circle" title="eliminar"
+					styleClass="ui-button-danger" update="@form"
+					actionListener="#{beanCredParametros.actionListenerEliminarParametro(b.idParametroCredito)}">
+					<p:confirm header="Confirmación"
+						message="¿Desea borrar este parámetro" icon="pi pi-info-circle" />
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+	</h:form>
+
+	<p:dialog header="Edición" widgetVar="dialogoEdicion">
+		<h:form id="formEdicion">
+			<p:panelGrid columns="2" layout="grid">
+				<h:outputText value="Interés:" />
+				<p:inputText value="#{beanCredParametros.edicionParametro.interes}"
+					required="true" requiredMessage="Ingrese el interés." />
+				<h:outputText value="Monto mínimo:" />
+				<p:inputText
+					value="#{beanCredParametros.edicionParametro.montoMinimo}"
+					required="true" requiredMessage="Ingrese el monto mínimo." />
+				<h:outputText value="Plazo máximo:" />
+				<p:inputText
+					value="#{beanCredParametros.edicionParametro.plazoMaxMontoMin}"
+					required="true" requiredMessage="Ingrese el plazo máximo." />
+				<h:outputText value="Seguro desgravamen:" />
+				<p:inputText
+					value="#{beanCredParametros.edicionParametro.seguroDesgravamen}"
+					required="true" requiredMessage="Ingrese el seguro desgravamen." />
+				<p:commandButton value="Guardar" icon="pi pi-save"
+					update="@form,:formDatos"
+					actionListener="#{beanCredParametros.actionListenerGuardarEdicionParametro()}"></p:commandButton>
+			</p:panelGrid>
+		</h:form>
+	</p:dialog>
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+		responsive="true" width="350">
+		<p:commandButton value="No" type="button"
+			styleClass="ui-confirmdialog-no ui-button-flat" />
+		<p:commandButton value="Sí" type="button"
+			styleClass="ui-confirmdialog-yes" />
+	</p:confirmDialog>
+
+</body>
+</html>
