@@ -41,9 +41,8 @@ public class BeanCredParametros implements Serializable {
 	}
 
 	public void actionListenerInsertarCredParametro() {
-
 		try {
-			if (listaCredParametro == null) {
+			if (listaCredParametro.isEmpty()) {
 				managerParametros.insertarCredParametro(interes, monto_minimo, plazo_max_monto_min, seguro_desgravamen);
 				listaCredParametro = managerParametros.findAllCredParametro();
 				nuevoParametro = new CredParametro();
