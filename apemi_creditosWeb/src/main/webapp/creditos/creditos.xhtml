@@ -45,7 +45,7 @@
 
 				</p:column>
 				<p:column headerText="Plazo">
-					<h:outputText value="#{cab.plazo}">
+					<h:outputText value="#{cab.plazo} meses">
 
 					</h:outputText>
 				</p:column>
@@ -61,7 +61,7 @@
 				</p:column>
 				
 				<p:column headerText="Pagado">
-					<p:selectBooleanCheckbox value="true">
+					<p:selectBooleanCheckbox value="#{cab.pagado}">
 					</p:selectBooleanCheckbox>
 				</p:column>
 				

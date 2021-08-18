@@ -79,7 +79,7 @@ public class BeanCreditos implements Serializable {
 	public void actionGenerarCredito() {
 		try {
 			if (this.getIdAsociado() == 0 || this.getIdGarante() == 0) {
-				JSFUtil.crearMensajeINFO("id == 0");
+				System.out.println("id == 0");
 
 			} else {
 				managerCreditos.GenerarCredito(idAsociado, idGarante, paramCred, monto, (int) nroCuotas,
