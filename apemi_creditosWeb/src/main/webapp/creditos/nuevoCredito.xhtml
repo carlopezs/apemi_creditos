@@ -54,7 +54,7 @@
 	</p:accordionPanel>
 
 	<p:accordionPanel>
-		<p:tab title="Generar tabla de amortizacion">
+		<p:tab title="Generar tabla de amortización">
 			<h:form>
 				<p:panelGrid columns="2">
 
@@ -104,30 +104,30 @@
 					</h:outputText>
 
 				</p:column>
-				<p:column headerText="Valor Cuota">
+				<p:column headerText="Valor Cuota ($)">
 					<h:outputText value="#{amortizacion.valorCuota}">
 						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
 					</h:outputText>
 				</p:column>
-				<p:column headerText="Interes">
+				<p:column headerText="Interes ($)">
 					<h:outputText value="#{amortizacion.interes}">
 						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
 					</h:outputText>
 
 				</p:column>
-				<p:column headerText="Capital">
+				<p:column headerText="Capital ($)">
 					<h:outputText value="#{amortizacion.capital}">
 						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
 					</h:outputText>
 				</p:column>
 				
-				<p:column headerText="Seguro de desgravamen">
+				<p:column headerText="Seguro de desgravamen ($)">
 					<h:outputText value="#{amortizacion.seguroDesgravamen}">
 						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
 					</h:outputText>
 				</p:column>
 
-				<p:column headerText="Saldo">
+				<p:column headerText="Saldo ($)">
 					<h:outputText value="#{amortizacion.saldo}">
 						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
 					</h:outputText>
@@ -140,6 +140,8 @@
 				</p:column>
 
 			</p:dataTable>
+			
+			
 		</h:form>
 	</p:panel>
 

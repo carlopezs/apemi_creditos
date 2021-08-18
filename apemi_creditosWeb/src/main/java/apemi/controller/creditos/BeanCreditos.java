@@ -37,6 +37,7 @@ public class BeanCreditos implements Serializable {
 	private double valorCuota;
 	private List<SegUsuario> listaAsociados;
 	private List<CredGarante> listaGarantes;
+	private List<String> listaPrueba; 
 	private CredParametro paramCred;
 
 	List<DTOAmortizacion> listaAmortizacion = new ArrayList<DTOAmortizacion>();
@@ -44,6 +45,12 @@ public class BeanCreditos implements Serializable {
 
 	public BeanCreditos() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public String actionMenuCreditosCab() {
+		listaPrueba = new ArrayList<String>();
+		listaPrueba.add("1");
+		return "creditos";
 	}
 	
 	public String actionMenuCreditos() {
@@ -140,6 +147,15 @@ public class BeanCreditos implements Serializable {
 		this.valorCuota = valorCuota;
 	}
 
+	public List<String> getListaPrueba() {
+		return listaPrueba;
+	}
+
+	public void setListaPrueba(List<String> listaPrueba) {
+		this.listaPrueba = listaPrueba;
+	}
+
+	
 	
 	
 	

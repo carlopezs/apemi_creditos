@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<body>
+
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Regresar" icon="pi pi-home" action="menu" />
+			<p:menuitem value="Nuevo credito" icon="pi pi-credit-card"
+						action="#{beanCreditos.actionMenuCreditos()}" />
+			<f:facet name="options">
+				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
+					icon="pi pi-user">
+					
+					<p:menuitem value="Perfil" icon="pi pi-cog"></p:menuitem>
+					<p:menuitem value="Cerrar sesión" icon="pi pi-sign-out"
+						action="#{beanSegLogin.actionCerrarSesion()}"></p:menuitem>
+				</p:menuButton>
+			</f:facet>
+		</p:menubar>
+	</h:form>
+
+	<p:panel>
+		<h:form id="form2">
+			<p:dataTable value="#{beanCreditos.listaPrueba}" >
+				<p:column headerText="Id">
+					<h:outputText value="1">
+
+					</h:outputText>
+
+				</p:column>
+				<p:column headerText="Asociado">
+					<h:outputText value="Carlos López">
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Monto ($)">
+					<h:outputText value="1000">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
+
+				</p:column>
+				<p:column headerText="Plazo">
+					<h:outputText value="12 meses">
+
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Fecha">
+					<h:outputText value="18/8/2021">
+
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Cuotas">
+					<p:commandButton value="Ver" />
+				</p:column>
+				
+				<p:column headerText="Pagado">
+					<p:selectBooleanCheckbox value="true">
+					</p:selectBooleanCheckbox>
+				</p:column>
+				
+
+
+
+			</p:dataTable>
+
+
+		</h:form>
+	</p:panel>
+</body>
+</html>
