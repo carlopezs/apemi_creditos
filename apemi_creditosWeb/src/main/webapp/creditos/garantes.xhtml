@@ -27,7 +27,7 @@
 
 				<p:commandButton value="Imprimir" type="button" icon="pi pi-print"
 					styleClass="p-d-block p-shadow-2 p-mb-3" style="margin-right: 10px">
-					<p:printer target=":form2:tablita" />
+					<p:printer target="form2" />
 				</p:commandButton>
 
 				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
@@ -44,6 +44,7 @@
 
 	<p:panel id="panel1">
 		<h:form id="form2">
+		<h2 align="center">GARANTES DE LOS ASOCIADOS</h2>
 			<p:dataTable id="tablita" value="#{beanGarante.listaGarante}"
 				var="garante" paginator="true" rows="5">
 				<p:column headerText="ID">
