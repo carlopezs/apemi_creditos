@@ -38,11 +38,13 @@ public class BeanCreditos implements Serializable {
 	private int idAsociado;
 	private int idGarante;
 	private double valorCuota;
-	private CredCabecera credCabecera; 
+	private CredCabecera credCabecera;
+	private CredCabecera credCabeceraAso;
 	private List<SegUsuario> listaAsociados;
 	private List<CredGarante> listaGarantes;
 	private List<CredCabecera> listadoCabeceras;
 	private List<CredDetalle> listadoDetalles;
+	private List<CredDetalle> listadoDetallesAso;
 	private List<String> listaPrueba;
 	private CredParametro paramCred;
 
@@ -57,9 +59,9 @@ public class BeanCreditos implements Serializable {
 		listadoCabeceras = managerCreditos.findAllCabeceras();
 		return "creditos";
 	}
-	
+
 	public String actionMenuCreditosDet(int idCabecera) {
-		
+
 		try {
 			listadoDetalles = managerCreditos.findDetalleByCabId(idCabecera);
 			credCabecera = managerCreditos.findCredCabeceraById(idCabecera);
@@ -69,6 +71,19 @@ public class BeanCreditos implements Serializable {
 		}
 		return "cuotasCreditos";
 	}
+	
+	
+	public String actionMenuCreditosDetAso(int idCabecera) {
+		try {
+			listadoDetallesAso = managerCreditos.findDetalleByCabId(idCabecera);
+			credCabeceraAso = managerCreditos.findCredCabeceraById(idCabecera);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return "/creditos/cuotasAsociado";
+	}
+	
 
 	public String actionMenuCreditos() {
 		listaGarantes = managerGarantes.findAllGarantes();
@@ -90,22 +105,22 @@ public class BeanCreditos implements Serializable {
 		this.setValorCuota(Math.round((valoramortizado) * 100.0) / 100.0);
 
 	}
-	
+
 	public void actionListenerPagarCuota(CredDetalle detalle) {
 		try {
 			managerCreditos.pagarCuota(detalle);
-			JSFUtil.crearMensajeINFO("Cuota " + detalle.getIdCreditoDet() + " actualizada correctamente." );
+			JSFUtil.crearMensajeINFO("Cuota " + detalle.getIdCreditoDet() + " actualizada correctamente.");
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR(e.getMessage());
 			e.printStackTrace();
 		}
 
 	}
-	
+
 	public void actionListenerPagarCredito(CredCabecera cabecera) {
 		try {
 			managerCreditos.pagarCredito(cabecera);
-			JSFUtil.crearMensajeINFO("Crédito " + cabecera.getIdCreditoCab()+ " actualizado correctamente." );
+			JSFUtil.crearMensajeINFO("Crédito " + cabecera.getIdCreditoCab() + " actualizado correctamente.");
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR(e.getMessage());
 			e.printStackTrace();
@@ -126,6 +141,15 @@ public class BeanCreditos implements Serializable {
 		} catch (Exception e) {
 			JSFUtil.crearMensajeERROR(e.getMessage());
 			e.printStackTrace();
+		}
+	}
+
+	public String transformarBoolPagadoAtexto(boolean pago) {
+		if (pago) {
+			return "Pagado";
+		}else
+		{
+			return "Pendiente";
 		}
 	}
 
@@ -198,7 +222,7 @@ public class BeanCreditos implements Serializable {
 	}
 
 	public void setIdAsociado(int idAsociado) {
-		System.out.println("ASOCIADO: "+ idAsociado);
+		System.out.println("ASOCIADO: " + idAsociado);
 		this.idAsociado = idAsociado;
 	}
 
@@ -207,7 +231,7 @@ public class BeanCreditos implements Serializable {
 	}
 
 	public void setIdGarante(int idGarante) {
-	   System.out.println("GARANTE: "+ idGarante);
+		System.out.println("GARANTE: " + idGarante);
 		this.idGarante = idGarante;
 	}
 
@@ -234,10 +258,22 @@ public class BeanCreditos implements Serializable {
 	public void setCredCabecera(CredCabecera credCabecera) {
 		this.credCabecera = credCabecera;
 	}
-	
-	
-	
-	
+
+	public CredCabecera getCredCabeceraAso() {
+		return credCabeceraAso;
+	}
+
+	public void setCredCabeceraAso(CredCabecera credCabeceraAso) {
+		this.credCabeceraAso = credCabeceraAso;
+	}
+
+	public List<CredDetalle> getListadoDetallesAso() {
+		return listadoDetallesAso;
+	}
+
+	public void setListadoDetallesAso(List<CredDetalle> listadoDetallesAso) {
+		this.listadoDetallesAso = listadoDetallesAso;
+	}
 	
 	
 

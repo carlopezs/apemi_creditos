@@ -7,12 +7,19 @@
 
 <h:head></h:head>
 <body>
-    <h:outputText value="Bienvenido usuario #{beanSegLogin.loginDTO.asoPersona.nombres}" />
+
+	<h2>
+		<h:outputText
+			value="Bienvenido usuario #{beanSegLogin.loginDTO.asoPersona.nombres} :D" />
+	</h2>
+
+
+
 	<h:form>
 		<p:menubar>
-	
+
 			<f:facet name="options">
-			
+
 				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
 					icon="pi pi-user">
 					<p:menuitem value="Perfil"></p:menuitem>
@@ -22,7 +29,50 @@
 			</f:facet>
 		</p:menubar>
 	</h:form>
+	
+	<p:panel>
+		<h:form id="form2">
+			<p:dataTable value="#{beanSegLogin.listadoCabecerasUsua}" var="cab">
+				<p:column headerText="Id">
+					<h:outputText value="#{cab.idCreditoCab}">
+					</h:outputText>
 
-	<h1>Aca va la tabla de asociados</h1>
+				</p:column>
+				<p:column headerText="Asociado">
+					<h:outputText
+						value="#{cab.segUsuario1.asoPersona.apellidos} #{cab.segUsuario1.asoPersona.nombres}">
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Monto ($)">
+					<h:outputText value="#{cab.montoTotal}">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
+
+				</p:column>
+				<p:column headerText="Plazo">
+					<h:outputText value="#{cab.plazo} meses">
+
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Fecha">
+					<h:outputText value="#{cab.fechaCreacion}">
+						<f:convertDateTime dateStyle="long" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Cuotas">
+					<p:commandButton value="Ver"
+						action="#{beanCreditos.actionMenuCreditosDetAso(cab.idCreditoCab)}" />
+				</p:column>
+
+				<p:column headerText="Estado">
+					<h:outputText value="#{beanCreditos.transformarBoolPagadoAtexto(cab.pagado)}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</p:panel>
+
+
 </body>
 </html>

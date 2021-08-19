@@ -33,7 +33,6 @@
 			<p:dataTable value="#{beanCreditos.listadoCabeceras}" var="cab">
 				<p:column headerText="Id">
 					<h:outputText value="#{cab.idCreditoCab}">
-
 					</h:outputText>
 
 				</p:column>
@@ -70,13 +69,7 @@
 						<p:ajax listener="#{beanCreditos.actionListenerPagarCredito(cab)}" />
 					</p:selectBooleanCheckbox>
 				</p:column>
-
-
-
-
 			</p:dataTable>
-
-
 		</h:form>
 	</p:panel>
 </body>

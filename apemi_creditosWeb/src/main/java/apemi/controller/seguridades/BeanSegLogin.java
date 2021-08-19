@@ -2,6 +2,7 @@ package apemi.controller.seguridades;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -12,7 +13,9 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
 import apemi.controller.JSFUtil;
+import apemi.model.core.entities.CredCabecera;
 import apemi.model.core.entities.SegModulo;
+import apemi.model.creditos.managers.ManagerCreditos;
 import apemi.model.seguridades.dtos.LoginDTO;
 import apemi.model.seguridades.managers.ManagerSeguridades;
 
@@ -26,10 +29,13 @@ public class BeanSegLogin implements Serializable {
 	private String clave;
 	private LoginDTO loginDTO;
 	private String direccionIP;
+	private List<CredCabecera> listadoCabecerasUsua;
 	
 	@EJB
 	private ManagerSeguridades mSeguridades;
 	
+	@EJB
+	private ManagerCreditos mCreditos;
 	
 	public BeanSegLogin() {
 		
@@ -55,6 +61,7 @@ public class BeanSegLogin implements Serializable {
 				return "menu?faces-redirect=true";
 			}
 			else {
+				listadoCabecerasUsua = mCreditos.findCabeceraByAsociado(idSegUsuario);
 				return "credAsociados?faces-redirect=true";
 			}
 			//loginDTO.setDireccionIP(direccionIP);
@@ -160,4 +167,14 @@ public class BeanSegLogin implements Serializable {
 		this.direccionIP = direccionIP;
 	}
 
+	public List<CredCabecera> getListadoCabecerasUsua() {
+		return listadoCabecerasUsua;
+	}
+
+	public void setListadoCabecerasUsua(List<CredCabecera> listadoCabecerasUsua) {
+		this.listadoCabecerasUsua = listadoCabecerasUsua;
+	}
+
+	
+	
 }

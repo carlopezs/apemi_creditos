@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<body>
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Regresar" icon="pi pi-home" action="/credAsociados" />
+			<f:facet name="options">
+				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
+					icon="pi pi-user">
+					<p:menuitem value="Perfil" icon="pi pi-cog"></p:menuitem>
+					<p:menuitem value="Credito de "></p:menuitem>
+					<p:menuitem value="Cerrar sesión" icon="pi pi-sign-out"
+						action="#{beanSegLogin.actionCerrarSesion()}"></p:menuitem>
+				</p:menuButton>
+			</f:facet>
+		</p:menubar>
+	</h:form>
+
+	<p:panel>
+		<p:panelGrid columns="8">
+			<h:outputText value="Id del Crédito:" style="font-weight:bold" />
+			<h:outputText value="#{beanCreditos.credCabeceraAso.idCreditoCab} " />
+			<h:outputText value="Trabajador:" style="font-weight:bold" />
+			<h:outputText
+				value="#{beanCreditos.credCabeceraAso.segUsuario2.asoPersona.nombres} #{beanCreditos.credCabeceraAso.segUsuario2.asoPersona.apellidos} " />
+			<h:outputText value="Numero de telefono:" style="font-weight:bold" />
+			<h:outputText
+				value="#{beanCreditos.credCabeceraAso.segUsuario2.asoPersona.telefono}" />
+			<h:outputText value="Cedula:" style="font-weight:bold" />
+			<h:outputText
+				value="#{beanCreditos.credCabeceraAso.segUsuario2.asoPersona.cedula}" />
+		</p:panelGrid>
+
+	</p:panel>
+
+	<p:panel>
+		<h:form id="form2">
+			<p:dataTable value="#{beanCreditos.listadoDetallesAso}" var="detalle">
+				<p:column headerText="Id cuota">
+					<h:outputText value="#{detalle.idCreditoDet}">
+
+					</h:outputText>
+
+				</p:column>
+				<p:column headerText="Valor Cuota ($)">
+					<h:outputText value="#{detalle.credCabecera.valorCuota}">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Interes ($)">
+					<h:outputText value="#{detalle.interesCuota}">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
+
+				</p:column>
+				<p:column headerText="Capital ($)">
+					<h:outputText value="#{detalle.capitalCuota}">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Seguro de desgravamen ($)">
+					<h:outputText value="#{detalle.degravamenCuota}">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Saldo ($)">
+					<h:outputText value="#{detalle.saldoCuota}">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Fecha de vencimiento">
+					<h:outputText value="#{detalle.fechaCuota}">
+						<f:convertDateTime dateStyle="long" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Estado">
+					<h:outputText value="#{beanCreditos.transformarBoolPagadoAtexto(detalle.pagado)}" />
+				</p:column>
+
+			</p:dataTable>
+
+
+		</h:form>
+	</p:panel>
+
+
+</body>
+</html>

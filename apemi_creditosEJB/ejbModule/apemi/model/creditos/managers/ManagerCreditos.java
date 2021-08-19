@@ -51,6 +51,10 @@ public class ManagerCreditos {
 
 	}
 	
+	public List<CredCabecera> findCabeceraByAsociado(int idUsuario){
+		return mDAO.findWhere(CredCabecera.class, "o.segUsuario1.idSegUsuario="+idUsuario, "o.idCreditoCab");
+	}
+	
 	public void pagarCuota(CredDetalle credDetalle) throws Exception {
 		CredDetalle detalleActualizar = (CredDetalle) mDAO.findById(CredDetalle.class, credDetalle.getIdCreditoDet());
 		detalleActualizar.setPagado(credDetalle.getPagado());

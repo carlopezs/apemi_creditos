@@ -34,7 +34,7 @@
 					<p:selectOneMenu value="#{beanCreditos.idAsociado}">
 						<p:ajax event="change" process="@this" />
 						<f:selectItems value="#{beanCreditos.listaAsociados}" var="user"
-							itemLabel="#{user.asoPersona.cedula}"
+							itemLabel="#{user.asoPersona.cedula} - #{user.asoPersona.nombres}"
 							itemValue="#{user.idSegUsuario}"></f:selectItems>
 					</p:selectOneMenu>
 
@@ -42,7 +42,7 @@
 					<h:outputText value="Seleccione el garante: " />
 					<p:selectOneMenu value="#{beanCreditos.idGarante}">
 						<f:selectItems value="#{beanCreditos.listaGarantes}" var="gar"
-							itemLabel="#{gar.asoPersona.cedula}" itemValue="#{gar.idGarante}"></f:selectItems>
+							itemLabel="#{gar.asoPersona.cedula} - #{gar.asoPersona.nombres}" itemValue="#{gar.idGarante}"></f:selectItems>
 							<p:ajax event="change" process="@this" />
 					</p:selectOneMenu>
 
