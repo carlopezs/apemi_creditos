@@ -7,16 +7,19 @@
 
 <h:head></h:head>
 <body>
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
 
 	<h:form>
 		<p:menubar>
 			<p:menuitem value="Regresar" icon="pi pi-home" action="menu" />
 			<p:menuitem value="Nuevo credito" icon="pi pi-credit-card"
-						action="#{beanCreditos.actionMenuCreditos()}" />
+				action="#{beanCreditos.actionMenuCreditos()}" />
 			<f:facet name="options">
 				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
 					icon="pi pi-user">
-					
+
 					<p:menuitem value="Perfil" icon="pi pi-cog"></p:menuitem>
 					<p:menuitem value="Cerrar sesión" icon="pi pi-sign-out"
 						action="#{beanSegLogin.actionCerrarSesion()}"></p:menuitem>
@@ -35,7 +38,8 @@
 
 				</p:column>
 				<p:column headerText="Asociado">
-					<h:outputText value="#{cab.segUsuario1.asoPersona.apellidos} #{cab.segUsuario1.asoPersona.nombres}">
+					<h:outputText
+						value="#{cab.segUsuario1.asoPersona.apellidos} #{cab.segUsuario1.asoPersona.nombres}">
 					</h:outputText>
 				</p:column>
 				<p:column headerText="Monto ($)">
@@ -52,19 +56,21 @@
 
 				<p:column headerText="Fecha">
 					<h:outputText value="#{cab.fechaCreacion}">
-
+						<f:convertDateTime dateStyle="long" />
 					</h:outputText>
 				</p:column>
 
 				<p:column headerText="Cuotas">
-					<p:commandButton value="Ver" />
+					<p:commandButton value="Ver"
+						action="#{beanCreditos.actionMenuCreditosDet(cab.idCreditoCab)}" />
 				</p:column>
-				
+
 				<p:column headerText="Pagado">
 					<p:selectBooleanCheckbox value="#{cab.pagado}">
+						<p:ajax listener="#{beanCreditos.actionListenerPagarCredito(cab)}" />
 					</p:selectBooleanCheckbox>
 				</p:column>
-				
+
 
 
 

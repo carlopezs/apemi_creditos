@@ -12,7 +12,7 @@
 	</p:growl>
 	<h:form>
 		<p:menubar>
-			<p:menuitem value="Regresar" icon="pi pi-home" action="menu" />
+			<p:menuitem value="Regresar" icon="pi pi-home" action="creditos" />
 			<f:facet name="options">
 				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
 					icon="pi pi-user">
@@ -80,10 +80,6 @@
 					<h:outputText value="Valor de la cuota:" />
 					<p:inputText value="#{beanCreditos.valorCuota}" required="true"
 						disabled="true"></p:inputText>
-
-
-
-
 
 					<p:commandButton value="Generar tabla" update="@form,:form2"
 						actionListener="#{beanCreditos.actionListenerMostarTablaDeAmortizacion()}">

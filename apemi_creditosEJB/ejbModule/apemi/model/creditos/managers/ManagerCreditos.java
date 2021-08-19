@@ -39,14 +39,37 @@ public class ManagerCreditos {
 	public List<CredCabecera> findAllCabeceras() {
 		return mDAO.findAll(CredCabecera.class);
 	}
-	
+
 	public List<CredDetalle> findAllDetalles() {
 		return mDAO.findAll(CredDetalle.class);
 	}
 
+	public CredCabecera findCredCabeceraById(int idCabecera) throws Exception {
+		CredCabecera credCabecera;
+		credCabecera = (CredCabecera) mDAO.findById(CredCabecera.class, idCabecera);
+		return credCabecera;
+
+	}
+	
+	public void pagarCuota(CredDetalle credDetalle) throws Exception {
+		CredDetalle detalleActualizar = (CredDetalle) mDAO.findById(CredDetalle.class, credDetalle.getIdCreditoDet());
+		detalleActualizar.setPagado(credDetalle.getPagado());
+		mDAO.actualizar(detalleActualizar);
+	}
+	
+	public void pagarCredito(CredCabecera credCabecera) throws Exception {
+		CredCabecera cabeceraActualizar = (CredCabecera) mDAO.findById(CredCabecera.class, credCabecera.getIdCreditoCab());
+		cabeceraActualizar.setPagado(credCabecera.getPagado());
+		mDAO.actualizar(cabeceraActualizar);
+	}
 
 	public Timestamp getTimestamp(java.util.Date date) {
 		return date == null ? null : new java.sql.Timestamp(date.getTime());
+	}
+
+	public List<CredDetalle> findDetalleByCabId(int idCabecera) {
+
+		return mDAO.findWhere(CredDetalle.class, "o.credCabecera.idCreditoCab=" + idCabecera, "o.idCreditoDet");
 	}
 
 	public void GenerarCredito(int idAsociado, int idGarante, CredParametro parametroCredito, double monto, int plazo,
@@ -61,7 +84,7 @@ public class ManagerCreditos {
 		SegUsuario asociado = (SegUsuario) mDAO.findById(SegUsuario.class, idAsociado);
 		SegUsuario administrador = (SegUsuario) mDAO.findById(SegUsuario.class, 1);
 		CredGarante garante = (CredGarante) mDAO.findById(CredGarante.class, idGarante);
-		
+
 		System.out.println("parametro asociado: " + idAsociado);
 		System.out.println("parametro garante:  " + idGarante);
 
@@ -87,7 +110,7 @@ public class ManagerCreditos {
 			nuevodetalle.setFechaCuota(getTimestamp(detalle.getFechaCuota()));
 			nuevodetalle.setDegravamenCuota(new BigDecimal(detalle.getSeguroDesgravamen()));
 			nuevodetalle.setSaldoCuota(new BigDecimal(detalle.getSaldo()));
-			nuevodetalle.setCapitalCuota(new BigDecimal(detalle.getValorCuota()));
+			nuevodetalle.setCapitalCuota(new BigDecimal(detalle.getCapital()));
 			nuevodetalle.setPagado(false);
 			mDAO.insertar(nuevodetalle);
 			// listaDetalle.add(nuevodetalle);

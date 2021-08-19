@@ -12,6 +12,7 @@ import javax.inject.Named;
 import apemi.controller.JSFUtil;
 import apemi.model.asociados.managers.ManagerAsociados;
 import apemi.model.core.entities.CredCabecera;
+import apemi.model.core.entities.CredDetalle;
 import apemi.model.core.entities.CredGarante;
 import apemi.model.core.entities.CredParametro;
 import apemi.model.core.entities.SegUsuario;
@@ -37,9 +38,11 @@ public class BeanCreditos implements Serializable {
 	private int idAsociado;
 	private int idGarante;
 	private double valorCuota;
+	private CredCabecera credCabecera; 
 	private List<SegUsuario> listaAsociados;
 	private List<CredGarante> listaGarantes;
 	private List<CredCabecera> listadoCabeceras;
+	private List<CredDetalle> listadoDetalles;
 	private List<String> listaPrueba;
 	private CredParametro paramCred;
 
@@ -53,6 +56,18 @@ public class BeanCreditos implements Serializable {
 	public String actionMenuCreditosCab() {
 		listadoCabeceras = managerCreditos.findAllCabeceras();
 		return "creditos";
+	}
+	
+	public String actionMenuCreditosDet(int idCabecera) {
+		
+		try {
+			listadoDetalles = managerCreditos.findDetalleByCabId(idCabecera);
+			credCabecera = managerCreditos.findCredCabeceraById(idCabecera);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "cuotasCreditos";
 	}
 
 	public String actionMenuCreditos() {
@@ -74,6 +89,27 @@ public class BeanCreditos implements Serializable {
 		double valoramortizado = monto * (tasaPeriodica / (1 - Math.pow(1 + tasaPeriodica, -nroCuotas)));
 		this.setValorCuota(Math.round((valoramortizado) * 100.0) / 100.0);
 
+	}
+	
+	public void actionListenerPagarCuota(CredDetalle detalle) {
+		try {
+			managerCreditos.pagarCuota(detalle);
+			JSFUtil.crearMensajeINFO("Cuota " + detalle.getIdCreditoDet() + " actualizada correctamente." );
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR(e.getMessage());
+			e.printStackTrace();
+		}
+
+	}
+	
+	public void actionListenerPagarCredito(CredCabecera cabecera) {
+		try {
+			managerCreditos.pagarCredito(cabecera);
+			JSFUtil.crearMensajeINFO("Crédito " + cabecera.getIdCreditoCab()+ " actualizado correctamente." );
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
 	public void actionGenerarCredito() {
@@ -182,6 +218,26 @@ public class BeanCreditos implements Serializable {
 	public void setListadoCabeceras(List<CredCabecera> listadoCabeceras) {
 		this.listadoCabeceras = listadoCabeceras;
 	}
+
+	public List<CredDetalle> getListadoDetalles() {
+		return listadoDetalles;
+	}
+
+	public void setListadoDetalles(List<CredDetalle> listadoDetalles) {
+		this.listadoDetalles = listadoDetalles;
+	}
+
+	public CredCabecera getCredCabecera() {
+		return credCabecera;
+	}
+
+	public void setCredCabecera(CredCabecera credCabecera) {
+		this.credCabecera = credCabecera;
+	}
+	
+	
+	
+	
 	
 	
 
