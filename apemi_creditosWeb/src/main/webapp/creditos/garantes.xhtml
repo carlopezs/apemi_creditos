@@ -16,11 +16,20 @@
 		<p:autoUpdate />
 	</p:growl>
 	<h:form>
+
 		<p:menubar>
 			<p:menuitem value="Regresar" icon="pi pi-home" action="menu" />
 			<p:menuitem value="Nuevo Garante" icon="pi pi-user-plus"
 				action="#{beanGarante.actionMenuNuevoGarante()}" />
+
+
 			<f:facet name="options">
+
+				<p:commandButton value="Imprimir" type="button" icon="pi pi-print"
+					styleClass="p-d-block p-shadow-2 p-mb-3" style="margin-right: 10px">
+					<p:printer target="form2" />
+				</p:commandButton>
+
 				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
 					icon="pi pi-user">
 					<p:menuitem value="Perfil" icon="pi pi-cog"></p:menuitem>
@@ -28,28 +37,34 @@
 						action="#{beanSegLogin.actionCerrarSesion()}"></p:menuitem>
 				</p:menuButton>
 			</f:facet>
+
 		</p:menubar>
 	</h:form>
-	<p:panel>
-		<h:form>
-			<p:dataTable value="#{beanGarante.listaGarante}" var="garante"
-				paginator="true" rows="5">
+
+
+	<p:panel id="panel1">
+		<h:form id="form2">
+		<h2 align="center">GARANTES DE LOS ASOCIADOS</h2>
+			<p:dataTable id="tablita" value="#{beanGarante.listaGarante}"
+				var="garante" paginator="true" rows="5">
 				<p:column headerText="ID">
 					<h:outputText value="#{garante.idGarante}" />
 				</p:column>
-				<p:column headerText="APELLIDOS" filterBy="#{garante.asoPersona.apellidos}"
+				<p:column headerText="APELLIDOS"
+					filterBy="#{garante.asoPersona.apellidos}"
 					filterMatchMode="contains">
 					<h:outputText value="#{garante.asoPersona.apellidos}" />
 				</p:column>
-				<p:column headerText="NOMBRES" filterBy="#{garante.asoPersona.nombres}"
-					filterMatchMode="contains">
+				<p:column headerText="NOMBRES"
+					filterBy="#{garante.asoPersona.nombres}" filterMatchMode="contains">
 					<h:outputText value="#{garante.asoPersona.nombres}" />
 				</p:column>
-				<p:column headerText="CORREO" filterBy="#{garante.asoPersona.correo}"
-					filterMatchMode="contains">
+				<p:column headerText="CORREO"
+					filterBy="#{garante.asoPersona.correo}" filterMatchMode="contains">
 					<h:outputText value="#{garante.asoPersona.correo}" />
 				</p:column>
-				<p:column headerText="TELÉFONO" filterBy="#{garante.asoPersona.telefono}"
+				<p:column headerText="TELÉFONO"
+					filterBy="#{garante.asoPersona.telefono}"
 					filterMatchMode="contains">
 					<h:outputText value="#{garante.asoPersona.movil}" />
 				</p:column>
@@ -63,11 +78,12 @@
 						actionListener="#{beanGarante.actionListenerActivarDesactivarGarante(garante.idGarante)}" />
 					<p:commandButton icon="pi pi-pencil" title="editar"
 						action="#{beanGarante.actionSeleccionarEdicionGarante(garante)}" />
-					
+
 				</p:column>
 			</p:dataTable>
 		</h:form>
 	</p:panel>
+
 	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
 		responsive="true" width="350">
 		<p:commandButton value="No" type="button"

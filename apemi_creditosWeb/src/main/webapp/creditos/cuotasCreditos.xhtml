@@ -13,7 +13,14 @@
 	<h:form>
 		<p:menubar>
 			<p:menuitem value="Regresar" icon="pi pi-home" action="creditos" />
+			
 			<f:facet name="options">
+			
+			<p:commandButton value="Imprimir" type="button" icon="pi pi-print"
+				styleClass="p-d-block p-shadow-2 p-mb-3" style="margin-right: 10px">
+				<p:printer target="panel1" />
+			</p:commandButton>	
+			
 				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
 					icon="pi pi-user">
 					<p:menuitem value="Perfil" icon="pi pi-cog"></p:menuitem>
@@ -24,7 +31,8 @@
 			</f:facet>
 		</p:menubar>
 	</h:form>
-
+	
+	<p:panel id="panel1">
 	<p:panel>
 		<p:panelGrid columns="8">
 			<h:outputText value="Id del Crédito:" style="font-weight:bold" />
@@ -96,6 +104,7 @@
 
 
 		</h:form>
+	</p:panel>
 	</p:panel>
 </body>
 </html>

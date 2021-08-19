@@ -20,7 +20,14 @@
 			<p:menuitem value="Regresar" icon="pi pi-home" action="menu" />
 			<p:menuitem value="Nuevo Asociado" icon="pi pi-user-plus"
 				action="#{beanAsociado.actionMenuNuevoAsociado()}" />
+				
 			<f:facet name="options">
+			
+				<p:commandButton value="Imprimir" type="button" icon="pi pi-print"
+					styleClass="p-d-block p-shadow-2 p-mb-3" style="margin-right: 10px">
+					<p:printer target="form2" />
+				</p:commandButton>
+				
 				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
 					icon="pi pi-user">
 					<p:menuitem value="Perfil" icon="pi pi-cog"></p:menuitem>
@@ -29,24 +36,31 @@
 				</p:menuButton>
 			</f:facet>
 		</p:menubar>
+		
+		
 	</h:form>
 	<p:panel>
-		<h:form>
-			<p:dataTable value="#{beanAsociado.listaAsociados}" var="asociado"
+		<h:form id="form2">
+		<div class="card">
+		<h2 align="center">ASOCIADOS DE APEMI</h2>
+			<p:dataTable id="tablita" value="#{beanAsociado.listaAsociados}" var="asociado"
 				paginator="true" rows="5">
+				
 				<p:column headerText="ID">
 					<h:outputText value="#{asociado.idSegUsuario}" />
 				</p:column>
-				<p:column headerText="APELLIDOS" filterBy="#{asociado.asoPersona.apellidos}"
+				<p:column headerText="APELLIDOS"
+					filterBy="#{asociado.asoPersona.apellidos}"
 					filterMatchMode="contains">
 					<h:outputText value="#{asociado.asoPersona.apellidos}" />
 				</p:column>
-				<p:column headerText="NOMBRES" filterBy="#{asociado.asoPersona.nombres}"
+				<p:column headerText="NOMBRES"
+					filterBy="#{asociado.asoPersona.nombres}"
 					filterMatchMode="contains">
 					<h:outputText value="#{asociado.asoPersona.nombres}" />
 				</p:column>
-				<p:column headerText="CORREO" filterBy="#{asociado.asoPersona.correo}"
-					filterMatchMode="contains">
+				<p:column headerText="CORREO"
+					filterBy="#{asociado.asoPersona.correo}" filterMatchMode="contains">
 					<h:outputText value="#{asociado.asoPersona.correo}" />
 				</p:column>
 				<p:column headerText="ACTIVO">
@@ -59,9 +73,10 @@
 						actionListener="#{beanAsociado.actionListenerActivarDesactivarAsociado(asociado.idSegUsuario)}" />
 					<p:commandButton icon="pi pi-pencil" title="editar"
 						action="#{beanAsociado.actionSeleccionarEdicionAsociado(asociado)}" />
-					
+
 				</p:column>
 			</p:dataTable>
+			</div>
 		</h:form>
 	</p:panel>
 	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
