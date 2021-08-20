@@ -135,6 +135,7 @@ public class BeanCreditos implements Serializable {
 			} else {
 				managerCreditos.GenerarCredito(idAsociado, idGarante, paramCred, monto, (int) nroCuotas,
 						listaAmortizacion);
+				listadoCabeceras = managerCreditos.findAllCabeceras();
 				JSFUtil.crearMensajeINFO("Credito generado correctamente");
 			}
 
