@@ -126,33 +126,34 @@ public class BeanAsociado implements Serializable {
 	}
 
 	
-	public String actionReporte() {
-		Map<String, Object> parametros = new HashMap<String, Object>();
-		/*
-		 * parametros.put("p_titulo_principal",p_titulo_principal);
-		 * parametros.put("p_titulo",p_titulo);
-		 */ FacesContext context = FacesContext.getCurrentInstance();
-		ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
-		String ruta = servletContext.getRealPath("asociados/ciudades.jasper");
+	public String actionReporte(){
+		System.out.println("hola soy asociados");
+		Map<String,Object> parametros=new HashMap<String,Object>();
+		/*parametros.put("p_titulo_principal",p_titulo_principal);
+		parametros.put("p_titulo",p_titulo);*/
+		FacesContext context=FacesContext.getCurrentInstance();
+		ServletContext servletContext=(ServletContext)context.getExternalContext().getContext();
+		String ruta=servletContext.getRealPath("asociados/reporteAsociados.jasper");
 		System.out.println(ruta);
-		HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
+		HttpServletResponse response=(HttpServletResponse)context.getExternalContext().getResponse();
 		response.addHeader("Content-disposition", "attachment;filename=reporte.pdf");
 		response.setContentType("application/pdf");
 		try {
-			Class.forName("org.postgresql.Driver");
-			Connection connection = null;
-			connection = DriverManager.getConnection("jdbc:postgresql://192.100.198.141:5432/calopezs", "calopezs","8171199261");
-			JasperPrint impresion = JasperFillManager.fillReport(ruta, parametros, connection);
-			JasperExportManager.exportReportToPdfStream(impresion, response.getOutputStream());
-			context.getApplication().getStateManager().saveView(context);
-			System.out.println("reporte generado.");
-			context.responseComplete();
+		Class.forName("org.postgresql.Driver");
+		Connection connection = null;
+		connection = DriverManager.getConnection("jdbc:postgresql://192.100.198.141:5432/calopezs", "calopezs","8171199261");
+		JasperPrint impresion=JasperFillManager.fillReport(ruta, parametros,connection);
+		JasperExportManager.exportReportToPdfStream(impresion, response.getOutputStream());
+		context.getApplication().getStateManager().saveView ( context ) ;
+		System.out.println("reporte generado.");
+		context.responseComplete();
 		} catch (Exception e) {
-			JSFUtil.crearMensajeERROR(e.getMessage());
-			e.printStackTrace();
+		JSFUtil.crearMensajeERROR(e.getMessage());
+		e.printStackTrace();
 		}
 		return "";
-	}
+		}
+	
 	
 	
 	
