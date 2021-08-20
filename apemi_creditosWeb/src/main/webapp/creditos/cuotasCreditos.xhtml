@@ -13,14 +13,15 @@
 	<h:form>
 		<p:menubar>
 			<p:menuitem value="Regresar" icon="pi pi-home" action="creditos" />
-			
+			<p:menuitem value="Reporte" icon="pi pi-book" ajax="false"
+				action="#{beanCreditos.actionReporte()}" />
 			<f:facet name="options">
-			
-			<p:commandButton value="Imprimir" type="button" icon="pi pi-print"
-				styleClass="p-d-block p-shadow-2 p-mb-3" style="margin-right: 10px">
-				<p:printer target="panel1" />
-			</p:commandButton>	
-			
+
+				<p:commandButton value="Imprimir" type="button" icon="pi pi-print"
+					styleClass="p-d-block p-shadow-2 p-mb-3" style="margin-right: 10px">
+					<p:printer target="panel1" />
+				</p:commandButton>
+
 				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
 					icon="pi pi-user">
 					<p:menuitem value="Perfil" icon="pi pi-cog"></p:menuitem>
@@ -31,80 +32,81 @@
 			</f:facet>
 		</p:menubar>
 	</h:form>
-	
+
 	<p:panel id="panel1">
-	<p:panel>
-		<p:panelGrid columns="8">
-			<h:outputText value="Id del Crédito:" style="font-weight:bold" />
-			<h:outputText value="#{beanCreditos.credCabecera.idCreditoCab} " />
-			<h:outputText value="Asociado:" style="font-weight:bold" />
-			<h:outputText
-				value="#{beanCreditos.credCabecera.segUsuario1.asoPersona.nombres} #{beanCreditos.credCabecera.segUsuario1.asoPersona.apellidos} " />
-			<h:outputText value="Numero de telefono:" style="font-weight:bold" />
-			<h:outputText
-				value="#{beanCreditos.credCabecera.segUsuario1.asoPersona.telefono}" />
-			<h:outputText value="Cedula:" style="font-weight:bold" />
-			<h:outputText
-				value="#{beanCreditos.credCabecera.segUsuario1.asoPersona.cedula}" />
-		</p:panelGrid>
+		<p:panel>
+			<p:panelGrid columns="8">
+				<h:outputText value="Id del Crédito:" style="font-weight:bold" />
+				<h:outputText value="#{beanCreditos.credCabecera.idCreditoCab} " />
+				<h:outputText value="Asociado:" style="font-weight:bold" />
+				<h:outputText
+					value="#{beanCreditos.credCabecera.segUsuario1.asoPersona.nombres} #{beanCreditos.credCabecera.segUsuario1.asoPersona.apellidos} " />
+				<h:outputText value="Numero de telefono:" style="font-weight:bold" />
+				<h:outputText
+					value="#{beanCreditos.credCabecera.segUsuario1.asoPersona.telefono}" />
+				<h:outputText value="Cedula:" style="font-weight:bold" />
+				<h:outputText
+					value="#{beanCreditos.credCabecera.segUsuario1.asoPersona.cedula}" />
+			</p:panelGrid>
 
-	</p:panel>
+		</p:panel>
 
-	<p:panel>
-		<h:form id="form2">
-			<p:dataTable value="#{beanCreditos.listadoDetalles}" var="detalle">
-				<p:column headerText="Id cuota">
-					<h:outputText value="#{detalle.idCreditoDet}">
+		<p:panel>
+			<h:form id="form2">
+				<p:dataTable value="#{beanCreditos.listadoDetalles}" var="detalle">
+					<p:column headerText="Id cuota">
+						<h:outputText value="#{detalle.idCreditoDet}">
 
-					</h:outputText>
+						</h:outputText>
 
-				</p:column>
-				<p:column headerText="Valor Cuota ($)">
-					<h:outputText value="#{detalle.credCabecera.valorCuota}">
-						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
-					</h:outputText>
-				</p:column>
-				<p:column headerText="Interes ($)">
-					<h:outputText value="#{detalle.interesCuota}">
-						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
-					</h:outputText>
+					</p:column>
+					<p:column headerText="Valor Cuota ($)">
+						<h:outputText value="#{detalle.credCabecera.valorCuota}">
+							<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Interes ($)">
+						<h:outputText value="#{detalle.interesCuota}">
+							<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+						</h:outputText>
 
-				</p:column>
-				<p:column headerText="Capital ($)">
-					<h:outputText value="#{detalle.capitalCuota}">
-						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
-					</h:outputText>
-				</p:column>
+					</p:column>
+					<p:column headerText="Capital ($)">
+						<h:outputText value="#{detalle.capitalCuota}">
+							<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+						</h:outputText>
+					</p:column>
 
-				<p:column headerText="Seguro de desgravamen ($)">
-					<h:outputText value="#{detalle.degravamenCuota}">
-						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
-					</h:outputText>
-				</p:column>
+					<p:column headerText="Seguro de desgravamen ($)">
+						<h:outputText value="#{detalle.degravamenCuota}">
+							<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+						</h:outputText>
+					</p:column>
 
-				<p:column headerText="Saldo ($)">
-					<h:outputText value="#{detalle.saldoCuota}">
-						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
-					</h:outputText>
-				</p:column>
+					<p:column headerText="Saldo ($)">
+						<h:outputText value="#{detalle.saldoCuota}">
+							<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+						</h:outputText>
+					</p:column>
 
-				<p:column headerText="Fecha de vencimiento">
-					<h:outputText value="#{detalle.fechaCuota}">
-						<f:convertDateTime dateStyle="long" />
-					</h:outputText>
-				</p:column>
-				
-				<p:column headerText="Pagado">
-					<p:selectBooleanCheckbox value="#{detalle.pagado}" >
-						<p:ajax listener="#{beanCreditos.actionListenerPagarCuota(detalle)}" />
-					</p:selectBooleanCheckbox>
-				</p:column>
+					<p:column headerText="Fecha de vencimiento">
+						<h:outputText value="#{detalle.fechaCuota}">
+							<f:convertDateTime dateStyle="long" />
+						</h:outputText>
+					</p:column>
 
-			</p:dataTable>
+					<p:column headerText="Pagado">
+						<p:selectBooleanCheckbox value="#{detalle.pagado}">
+							<p:ajax
+								listener="#{beanCreditos.actionListenerPagarCuota(detalle)}" />
+						</p:selectBooleanCheckbox>
+					</p:column>
+
+				</p:dataTable>
 
 
-		</h:form>
-	</p:panel>
+			</h:form>
+		</p:panel>
 	</p:panel>
 </body>
 </html>
