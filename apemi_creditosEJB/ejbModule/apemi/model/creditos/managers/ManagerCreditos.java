@@ -78,7 +78,11 @@ public class ManagerCreditos {
 
 	public void GenerarCredito(int idAsociado, int idGarante, CredParametro parametroCredito, double monto, int plazo,
 			List<DTOAmortizacion> detalleCredito) throws Exception {
-
+		if (monto < parametroCredito.getMontoMinimo().doubleValue()) {
+			throw new Exception("El monto ingresado es menor al monto minimo especificado en los parametros: "+ parametroCredito.getMontoMinimo().doubleValue());
+		}else if(plazo > parametroCredito.getPlazoMaxMontoMin()){
+			throw new Exception("El plazo ingresado es mayor al plazo maximo especificado en los parametros: "+ parametroCredito.getPlazoMaxMontoMin());
+		}
 		// Creacion de la Cabecera
 		double tasaAnual = parametroCredito.getInteres().doubleValue();
 		tasaAnual = tasaAnual / 100;
@@ -89,9 +93,7 @@ public class ManagerCreditos {
 		SegUsuario administrador = (SegUsuario) mDAO.findById(SegUsuario.class, 1);
 		CredGarante garante = (CredGarante) mDAO.findById(CredGarante.class, idGarante);
 
-		System.out.println("parametro asociado: " + idAsociado);
-		System.out.println("parametro garante:  " + idGarante);
-
+		
 		CredCabecera cabeceraCredito = new CredCabecera();
 		cabeceraCredito.setSegUsuario1(asociado); // asociado
 		cabeceraCredito.setSegUsuario2(administrador); // admin
