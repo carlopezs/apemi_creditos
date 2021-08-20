@@ -1,15 +1,22 @@
 package apemi.controller.asociados;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 
 import apemi.controller.JSFUtil;
 import apemi.controller.seguridades.BeanSegLogin;
@@ -17,6 +24,9 @@ import apemi.model.asociados.managers.ManagerAsociados;
 import apemi.model.core.entities.AsoCiudad;
 import apemi.model.core.entities.AsoPersona;
 import apemi.model.core.entities.SegUsuario;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 
 @Named
 @SessionScoped
@@ -115,6 +125,38 @@ public class BeanAsociado implements Serializable {
 		}
 	}
 
+	
+	public String actionReporte() {
+		Map<String, Object> parametros = new HashMap<String, Object>();
+		/*
+		 * parametros.put("p_titulo_principal",p_titulo_principal);
+		 * parametros.put("p_titulo",p_titulo);
+		 */ FacesContext context = FacesContext.getCurrentInstance();
+		ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
+		String ruta = servletContext.getRealPath("asociados/ciudades.jasper");
+		System.out.println(ruta);
+		HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
+		response.addHeader("Content-disposition", "attachment;filename=reporte.pdf");
+		response.setContentType("application/pdf");
+		try {
+			Class.forName("org.postgresql.Driver");
+			Connection connection = null;
+			connection = DriverManager.getConnection("jdbc:postgresql://192.100.198.141:5432/calopezs", "calopezs","8171199261");
+			JasperPrint impresion = JasperFillManager.fillReport(ruta, parametros, connection);
+			JasperExportManager.exportReportToPdfStream(impresion, response.getOutputStream());
+			context.getApplication().getStateManager().saveView(context);
+			System.out.println("reporte generado.");
+			context.responseComplete();
+		} catch (Exception e) {
+			JSFUtil.crearMensajeERROR(e.getMessage());
+			e.printStackTrace();
+		}
+		return "";
+	}
+	
+	
+	
+	
 	public List<SegUsuario> getListaAsociados() {
 		return listaAsociados;
 	}
