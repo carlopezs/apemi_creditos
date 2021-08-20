@@ -21,14 +21,11 @@
 			<p:menuitem value="Regresar" icon="pi pi-home" action="menu" />
 			<p:menuitem value="Nuevo Garante" icon="pi pi-user-plus"
 				action="#{beanGarante.actionMenuNuevoGarante()}" />
+			<p:menuitem value="Reporte" icon="pi pi-book" ajax="false" 
+			action="#{beanGarante.actionReporte()}" />
 
 
 			<f:facet name="options">
-
-				<p:commandButton value="Imprimir" type="button" icon="pi pi-print"
-					styleClass="p-d-block p-shadow-2 p-mb-3" style="margin-right: 10px">
-					<p:printer target="form2" />
-				</p:commandButton>
 
 				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
 					icon="pi pi-user">
@@ -44,7 +41,7 @@
 
 	<p:panel id="panel1">
 		<h:form id="form2">
-		<h2 align="center">GARANTES DE LOS ASOCIADOS</h2>
+			<h2 align="center">GARANTES DE LOS ASOCIADOS</h2>
 			<p:dataTable id="tablita" value="#{beanGarante.listaGarante}"
 				var="garante" paginator="true" rows="5">
 				<p:column headerText="ID">
