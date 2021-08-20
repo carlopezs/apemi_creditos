@@ -88,7 +88,7 @@ public class BeanGarante implements Serializable {
 		HashMap<String, Object> parametros = new HashMap<String, Object>();
 		FacesContext context = FacesContext.getCurrentInstance();
 		ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
-		String ruta = servletContext.getRealPath("creditos/reportegarante.jasper");
+		String ruta = servletContext.getRealPath("creditos/reporteGar.jasper");
 		System.out.println(ruta);
 		HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
 		response.addHeader("Content-disposition", "attachment;filename=reporteGarantes.pdf");
